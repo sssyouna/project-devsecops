@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:${APP_PORT:-3000}:3000"
+    volumes:
+      - cloud-data:/app/data
+    restart: unless-stopped
+volumes:
+  cloud-data:
