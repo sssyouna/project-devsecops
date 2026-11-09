@@ -1,0 +1,26 @@
+[
+  {
+    "exit_code": 0,
+    "kind": "pod",
+    "name": "nonowner-pvc",
+    "namespace": "project5-data"
+  },
+  {
+    "exit_code": 0,
+    "kind": "pod",
+    "name": "wrong-namespace-pvc",
+    "namespace": "project5"
+  },
+  {
+    "exit_code": 0,
+    "kind": "secret",
+    "name": "phase2-canary-0ba95275bc",
+    "namespace": "project5"
+  },
+  {
+    "exit_code": 0,
+    "kind": "namespace",
+    "name": "project5-check-0ba95275bc",
+    "namespace": null
+  }
+]

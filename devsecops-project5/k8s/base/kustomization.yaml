@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: project5
 resources:
   - namespace.yaml
   - identity.yaml
@@ -8,3 +7,11 @@ resources:
   - postgres.yaml
   - backend.yaml
   - frontend.yaml
+  - ../security
+configMapGenerator:
+  - name: database-init
+    namespace: project5-data
+    files: [bootstrap.sh]
+  - name: database-access
+    namespace: project5-data
+    files: [pg_hba.conf, pg_ident.conf]

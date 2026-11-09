@@ -33,6 +33,12 @@ cluster() {
   fi
   chmod 600 "$KUBECONFIG"
   guard
+  # Import the cached CNI components sequentially before scheduling Calico.
+  # This avoids registry downloads and simultaneous unpacking on the small VM.
+  for image in quay.io/calico/calico:v3.33.0 quay.io/calico/node:v3.33.0 quay.io/calico/third-party-cni-plugins:v3.33.0; do
+    docker image inspect "$image" >/dev/null
+    kind load docker-image --name "$CLUSTER" "$image"
+  done
   if [[ ! -f .lab/cache/calico-v3.33.0.yaml ]]; then
     curl -fsSL --retry 3 --connect-timeout 15 --max-time 120 \
       https://raw.githubusercontent.com/projectcalico/calico/v3.33.0/manifests/calico.yaml \
@@ -48,18 +54,24 @@ cluster() {
 }
 build() {
   guard
-  docker build -t project5-backend:phase1 app/backend
-  docker build -t project5-frontend:phase1 app/frontend
-  docker pull "$POSTGRES_IMAGE"
+  docker build --pull=false -t project5-backend:native app/backend
+  docker build --pull=false -t project5-frontend:native app/frontend
+  docker image inspect "$POSTGRES_IMAGE" >/dev/null
   # Docker archive loading does not retain upstream multi-architecture digests.
   # Give the digest-selected image a local alias and prohibit registry pulls.
   docker tag "$POSTGRES_IMAGE" project5-postgres:17.6
-  kind load docker-image --name "$CLUSTER" project5-backend:phase1 project5-frontend:phase1 project5-postgres:17.6
+  for image in project5-backend:native project5-frontend:native project5-postgres:17.6; do
+    kind load docker-image --name "$CLUSTER" "$image"
+  done
 }
 deploy() {
   guard
+  k -n project5 delete role excessive-workload-access --ignore-not-found=true
+  k -n project5 delete rolebinding shared-workload-excessive-access --ignore-not-found=true
+  k -n project5 delete serviceaccount shared-workload --ignore-not-found=true
   k apply -k k8s/base
-  for workload in postgres backend frontend; do
+  k -n project5-data rollout status deployment/postgres --timeout=240s
+  for workload in backend frontend; do
     k -n project5 rollout status "deployment/$workload" --timeout=240s
   done
 }
@@ -68,8 +80,13 @@ case "${1:-help}" in
   cluster) cluster ;;
   build) build ;;
   deploy) deploy ;;
-  forward) guard; exec "$KUBECTL" --kubeconfig "$KUBECONFIG" --context "kind-$CLUSTER" -n project5 port-forward --address 127.0.0.1 service/frontend 8080:8080 ;;
-  status) guard; k get nodes; k -n project5 get deployments,pods,services,pvc; k get storageclasses ;;
+  forward) guard; exec "$KUBECTL" --kubeconfig "$KUBECONFIG" --context "kind-$CLUSTER" -n project5 port-forward --address 127.0.0.1 service/frontend "${PROJECT5_PORT:-8080}:8080" ;;
+  down)
+    if docker inspect "$CLUSTER-control-plane" >/dev/null 2>&1; then
+      [[ "$(docker inspect "$CLUSTER-control-plane" --format '{{ index .Config.Labels "io.x-k8s.kind.cluster" }}')" == "$CLUSTER" ]]
+      kind delete cluster --name "$CLUSTER" --kubeconfig "$KUBECONFIG"
+    fi ;;
+  status) guard; k get nodes; k -n project5 get deployments,pods,services,networkpolicies; k -n project5-data get deployments,pods,services,pvc,networkpolicies; k get storageclasses ;;
   kubectl) shift; guard; k "$@" ;;
-  *) echo 'Usage: bash scripts/lab.sh {up|cluster|build|deploy|forward|status|kubectl ...}' ;;
+  *) echo 'Usage: bash scripts/lab.sh {up|cluster|build|deploy|forward|down|status|kubectl ...}' ;;
 esac

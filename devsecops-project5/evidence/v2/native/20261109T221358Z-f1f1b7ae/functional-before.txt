@@ -1,0 +1,19 @@
+PASS frontend HTML, JavaScript, and CSS served
+PASS frontend → backend → PostgreSQL read (3 records)
+PASS create and read exact stored record
+PASS duplicate SKU, negative and fractional quantity rejected
+PASS update persisted and returned
+deployment.apps/postgres restarted
+Waiting for deployment "postgres" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "postgres" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "postgres" rollout to finish: 0 out of 1 new replicas have been updated...
+Waiting for deployment "postgres" rollout to finish: 0 of 1 updated replicas are available...
+deployment "postgres" successfully rolled out
+PASS exact record survived PostgreSQL Pod replacement; same PVC/PV pvc-cf23e41a-629d-4ce5-b3ad-366a180655fe
+deployment.apps/backend restarted
+Waiting for deployment "backend" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "backend" rollout to finish: 1 old replicas are pending termination...
+deployment "backend" successfully rolled out
+PASS exact record survived backend Pod replacement
+PASS delete and missing-record responses
+PASS all requested functional checks

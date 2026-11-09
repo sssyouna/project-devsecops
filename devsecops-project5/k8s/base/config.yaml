@@ -1,9 +1,20 @@
+# Public synthetic lab values only. Replace through a secret provisioning process
+# before any real deployment. Kubernetes Secrets are not encryption at rest.
 apiVersion: v1
 kind: Secret
 metadata:
   name: demo-database
+  namespace: project5
 type: Opaque
 stringData:
-  # Public, synthetic lab values. Never reuse outside this disposable cluster.
-  password: demo-only-password
-  database-url: postgresql://inventory:demo-only-password@postgres:5432/inventory
+  database-url: postgresql://inventory_app:demo-app-only-password@postgres.project5-data.svc.cluster.local:5432/inventory
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: database-bootstrap
+  namespace: project5-data
+type: Opaque
+stringData:
+  admin-password: demo-admin-only-password
+  app-password: demo-app-only-password

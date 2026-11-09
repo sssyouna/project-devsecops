@@ -20,36 +20,9 @@ async def lifespan(app: FastAPI):
     for attempt in range(45):
         try:
             with connect() as conn:
-                conn.execute("""
-                    CREATE TABLE IF NOT EXISTS inventory (
-                        id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-                        sku varchar(40) UNIQUE NOT NULL,
-                        name varchar(100) NOT NULL,
-                        quantity integer NOT NULL CHECK (quantity >= 0),
-                        location varchar(80) NOT NULL
-                    )
-                """)
-                # Seed only a genuinely new database. Restarting never resurrects
-                # deleted demonstration records.
-                conn.execute("""
-                    CREATE TABLE IF NOT EXISTS app_metadata (
-                        key text PRIMARY KEY, value text NOT NULL
-                    )
-                """)
-                first_start = conn.execute("""
-                    INSERT INTO app_metadata VALUES ('seeded', 'true')
-                    ON CONFLICT DO NOTHING RETURNING key
-                """).fetchone()
-                if first_start:
-                    for record in [
-                        ("DEMO-001", "Demo laptop", 12, "Fictional office A"),
-                        ("DEMO-002", "Demo monitor", 24, "Fictional office B"),
-                        ("DEMO-003", "Demo keyboard", 36, "Fictional storeroom"),
-                    ]:
-                        conn.execute(
-                            "INSERT INTO inventory (sku, name, quantity, location) VALUES (%s, %s, %s, %s)",
-                            record,
-                        )
+                # Schema and seeds belong to the trusted database bootstrap.
+                # The application role can perform CRUD but cannot execute DDL.
+                conn.execute("SELECT id FROM inventory LIMIT 1").fetchone()
             break
         except psycopg.OperationalError:
             if attempt == 44:

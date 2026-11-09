@@ -2,34 +2,38 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: project5
 spec:
   replicas: 1
-  minReadySeconds: 5
   selector:
     matchLabels: {app: backend}
   template:
     metadata:
       labels: {app: backend}
     spec:
-      serviceAccountName: shared-workload
+      serviceAccountName: backend
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile: {type: RuntimeDefault}
       containers:
         - name: backend
-          image: project5-backend:phase1
+          image: project5-backend:native
           imagePullPolicy: Never
-          # Allow Service endpoint updates to settle before Uvicorn shuts down.
-          lifecycle:
-            preStop:
-              exec:
-                command: [python, -c, "import time; time.sleep(10)"]
           securityContext:
-            runAsUser: 0
-            # INTENTIONALLY INSECURE: no capability drop, seccomp profile,
-            # non-root requirement, or read-only root filesystem.
-            allowPrivilegeEscalation: true
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+            readOnlyRootFilesystem: true
           env:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef: {name: demo-database, key: database-url}
+          lifecycle:
+            preStop:
+              exec:
+                command: [python, -c, "import time; time.sleep(10)"]
           ports:
             - {name: http, containerPort: 8000}
           startupProbe:
@@ -43,22 +47,19 @@ spec:
             httpGet: {path: /health/live, port: http}
             periodSeconds: 10
           volumeMounts:
-            - name: unnecessary-export
-              mountPath: /lab-shared
-              subPath: exports
-              readOnly: false
+            - {name: tmp, mountPath: /tmp}
           resources:
-            requests: {cpu: 25m, memory: 48Mi}
+            requests: {cpu: 10m, memory: 16Mi}
             limits: {cpu: 500m, memory: 192Mi}
       volumes:
-        - name: unnecessary-export
-          persistentVolumeClaim:
-            claimName: postgres-data
+        - name: tmp
+          emptyDir: {sizeLimit: 32Mi}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend
+  namespace: project5
 spec:
   type: ClusterIP
   selector: {app: backend}
