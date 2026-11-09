@@ -84,3 +84,4 @@ src/store.js        SQLite schema, validation, project and deployment logic
 public/             Responsive browser application
 test/app.test.js    HTTP integration tests
 ```
+# project-devsecops
