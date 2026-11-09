@@ -1,0 +1,3 @@
+Deleting cluster "project5-lab" ...
+Deleted nodes: ["project5-lab-control-plane"]
+Remaining project5-lab containers: []

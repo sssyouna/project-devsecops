@@ -1,0 +1,14 @@
+PASS frontend HTML, JavaScript, and CSS served
+PASS frontend → backend → PostgreSQL read (3 records)
+PASS create and read exact stored record
+PASS duplicate SKU, negative and fractional quantity rejected
+PASS update persisted and returned
+PASS delete and missing-record responses
+PASS all requested functional checks
+PASS frontend HTML, JavaScript, and CSS served
+PASS frontend → backend → PostgreSQL read (3 records)
+PASS create and read exact stored record
+PASS duplicate SKU, negative and fractional quantity rejected
+PASS update persisted and returned
+PASS delete and missing-record responses
+PASS all requested functional checks

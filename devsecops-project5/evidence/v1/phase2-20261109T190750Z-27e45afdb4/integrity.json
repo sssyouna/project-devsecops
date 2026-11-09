@@ -1,0 +1,193 @@
+{
+  "after": {
+    "application_network_policies": [],
+    "deployment/backend": {
+      "spec_sha256": "0a0549ef32c6dae6a31332d5f36b5021e8eaf8d85743225f7d619b4c597c9039",
+      "uid": "bb4f9601-05d6-486d-93f9-4a790627721e"
+    },
+    "deployment/frontend": {
+      "spec_sha256": "01a25af68879a57ee96480793f7851c1c791ff6940de928c1d572e3a58d2f044",
+      "uid": "420896aa-254f-4dfe-9e1f-50763d8578cd"
+    },
+    "deployment/postgres": {
+      "spec_sha256": "111bb13ce9a4a8bc17ad9b65948709d11934b07bd7581494873f622cdc800694",
+      "uid": "0f669b1b-7c01-4fe2-91f9-5d177df5cf64"
+    },
+    "namespace/project5": {
+      "labels": {
+        "kubernetes.io/metadata.name": "project5",
+        "pod-security.kubernetes.io/enforce": "privileged",
+        "pod-security.kubernetes.io/enforce-version": "v1.35",
+        "project5-lab": "true"
+      },
+      "object_sha256": "f228d4a413be015bc037caef65b62f40441f56c697312950ff2aa358b26bcc73",
+      "uid": "bac3200e-ffbf-4793-a72e-763cd513d88f"
+    },
+    "pods": [
+      {
+        "image_ids": [
+          "sha256:e3a2e4ebea2090e2c36b55374d47b5840f700ddc3aff91c4916062646c8fc68d"
+        ],
+        "name": "backend-675db7dd97-jcx7q",
+        "uid": "27bcb186-04e7-48f9-99a9-e6557fb21906"
+      },
+      {
+        "image_ids": [
+          "sha256:3cbe8fcd58dc548c82187155fbc134f0ac3dec7e01e8865ce8bd4147ad143a51"
+        ],
+        "name": "frontend-6d5cb49446-zvj2x",
+        "uid": "b5393298-7e1d-41fb-88b1-7810830c0794"
+      },
+      {
+        "image_ids": [
+          "sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8"
+        ],
+        "name": "postgres-7cb5456846-8zrmg",
+        "uid": "0394397c-4493-4fcb-8ed2-71eb230c0e2d"
+      }
+    ],
+    "pvc": {
+      "spec_sha256": "b8796115bb800c15d8d1a1dfe6e7388d6abc523384fb9372c0248c678dc51629",
+      "uid": "641ec459-4e2f-470f-b3d2-2d0a82aca567",
+      "volume": "pvc-641ec459-4e2f-470f-b3d2-2d0a82aca567"
+    },
+    "role/excessive-workload-access": {
+      "labels": {},
+      "object_sha256": "a0ac68fab3635ce1f30fd617a6a219b5d9e61f78d69fefc40aa7e24fbc5008da",
+      "uid": "3c686cd3-f4be-4d9e-9e86-3059e5f91636"
+    },
+    "rolebinding/shared-workload-excessive-access": {
+      "labels": {},
+      "object_sha256": "8d9d78a8da9fc0448785766ccc2498d91edaff70f45eb0448eb8cfe1c322c88f",
+      "uid": "b05adc93-0f1c-49c5-b650-ea9f5b73c2a1"
+    },
+    "service/backend": "7616205320e075aca661994c88c152171d32224be5acaff29963503d1d5a9fc1",
+    "service/frontend": "2b093a0ae822f2ef5d751bb628095c2a08f7e39f3b052f9d0a2fa6fcd875ba27",
+    "service/postgres": "e0ddacf6c7f6efd0ecacd411cb2aef842a4d86b6d6be7983cfd6b372cc24bdc9",
+    "serviceaccount/shared-workload": {
+      "labels": {},
+      "object_sha256": "b08deca9dee46ca9c3761cbafac6c15e024b1eae5b94b6d1d1edb0d455422c0e",
+      "uid": "6a097cfa-e6f7-4fe4-b86c-32b4dcdb3960"
+    }
+  },
+  "before": {
+    "application_network_policies": [],
+    "deployment/backend": {
+      "spec_sha256": "0a0549ef32c6dae6a31332d5f36b5021e8eaf8d85743225f7d619b4c597c9039",
+      "uid": "bb4f9601-05d6-486d-93f9-4a790627721e"
+    },
+    "deployment/frontend": {
+      "spec_sha256": "01a25af68879a57ee96480793f7851c1c791ff6940de928c1d572e3a58d2f044",
+      "uid": "420896aa-254f-4dfe-9e1f-50763d8578cd"
+    },
+    "deployment/postgres": {
+      "spec_sha256": "111bb13ce9a4a8bc17ad9b65948709d11934b07bd7581494873f622cdc800694",
+      "uid": "0f669b1b-7c01-4fe2-91f9-5d177df5cf64"
+    },
+    "namespace/project5": {
+      "labels": {
+        "kubernetes.io/metadata.name": "project5",
+        "pod-security.kubernetes.io/enforce": "privileged",
+        "pod-security.kubernetes.io/enforce-version": "v1.35",
+        "project5-lab": "true"
+      },
+      "object_sha256": "f228d4a413be015bc037caef65b62f40441f56c697312950ff2aa358b26bcc73",
+      "uid": "bac3200e-ffbf-4793-a72e-763cd513d88f"
+    },
+    "pods": [
+      {
+        "image_ids": [
+          "sha256:e3a2e4ebea2090e2c36b55374d47b5840f700ddc3aff91c4916062646c8fc68d"
+        ],
+        "name": "backend-675db7dd97-jcx7q",
+        "uid": "27bcb186-04e7-48f9-99a9-e6557fb21906"
+      },
+      {
+        "image_ids": [
+          "sha256:3cbe8fcd58dc548c82187155fbc134f0ac3dec7e01e8865ce8bd4147ad143a51"
+        ],
+        "name": "frontend-6d5cb49446-zvj2x",
+        "uid": "b5393298-7e1d-41fb-88b1-7810830c0794"
+      },
+      {
+        "image_ids": [
+          "sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8"
+        ],
+        "name": "postgres-7cb5456846-8zrmg",
+        "uid": "0394397c-4493-4fcb-8ed2-71eb230c0e2d"
+      }
+    ],
+    "pvc": {
+      "spec_sha256": "b8796115bb800c15d8d1a1dfe6e7388d6abc523384fb9372c0248c678dc51629",
+      "uid": "641ec459-4e2f-470f-b3d2-2d0a82aca567",
+      "volume": "pvc-641ec459-4e2f-470f-b3d2-2d0a82aca567"
+    },
+    "role/excessive-workload-access": {
+      "labels": {},
+      "object_sha256": "a0ac68fab3635ce1f30fd617a6a219b5d9e61f78d69fefc40aa7e24fbc5008da",
+      "uid": "3c686cd3-f4be-4d9e-9e86-3059e5f91636"
+    },
+    "rolebinding/shared-workload-excessive-access": {
+      "labels": {},
+      "object_sha256": "8d9d78a8da9fc0448785766ccc2498d91edaff70f45eb0448eb8cfe1c322c88f",
+      "uid": "b05adc93-0f1c-49c5-b650-ea9f5b73c2a1"
+    },
+    "service/backend": "7616205320e075aca661994c88c152171d32224be5acaff29963503d1d5a9fc1",
+    "service/frontend": "2b093a0ae822f2ef5d751bb628095c2a08f7e39f3b052f9d0a2fa6fcd875ba27",
+    "service/postgres": "e0ddacf6c7f6efd0ecacd411cb2aef842a4d86b6d6be7983cfd6b372cc24bdc9",
+    "serviceaccount/shared-workload": {
+      "labels": {},
+      "object_sha256": "b08deca9dee46ca9c3761cbafac6c15e024b1eae5b94b6d1d1edb0d455422c0e",
+      "uid": "6a097cfa-e6f7-4fe4-b86c-32b4dcdb3960"
+    }
+  },
+  "database_after": {
+    "create_database": true,
+    "create_role": true,
+    "database_server_serviceaccount_file_read": {
+      "allowed": true,
+      "subject_only": "system:serviceaccount:project5:shared-workload"
+    },
+    "database_user": "inventory",
+    "inventory_privileges": {
+      "DELETE": true,
+      "INSERT": true,
+      "SELECT": true,
+      "UPDATE": true
+    },
+    "row_count": 3,
+    "rows_sha256": "16ab703b9d23830c0070316d125bd8400edf2c078de4bba01634f558c5c2c909",
+    "sequence": [
+      6,
+      true
+    ],
+    "superuser": true,
+    "temporary_table_write_then_rollback": true
+  },
+  "database_before": {
+    "create_database": true,
+    "create_role": true,
+    "database_server_serviceaccount_file_read": {
+      "allowed": true,
+      "subject_only": "system:serviceaccount:project5:shared-workload"
+    },
+    "database_user": "inventory",
+    "inventory_privileges": {
+      "DELETE": true,
+      "INSERT": true,
+      "SELECT": true,
+      "UPDATE": true
+    },
+    "row_count": 3,
+    "rows_sha256": "16ab703b9d23830c0070316d125bd8400edf2c078de4bba01634f558c5c2c909",
+    "sequence": [
+      5,
+      true
+    ],
+    "superuser": true,
+    "temporary_table_write_then_rollback": true
+  },
+  "database_rows_unchanged": true,
+  "runtime_baseline_unchanged": true,
+  "source_unchanged": true
+}

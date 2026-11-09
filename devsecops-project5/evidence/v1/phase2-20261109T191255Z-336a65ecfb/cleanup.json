@@ -1,0 +1,20 @@
+[
+  {
+    "exit_code": 0,
+    "kind": "pod",
+    "name": "phase2-volume-336a65ecfb",
+    "namespace": "project5"
+  },
+  {
+    "exit_code": 0,
+    "kind": "secret",
+    "name": "phase2-canary-336a65ecfb",
+    "namespace": "project5"
+  },
+  {
+    "exit_code": 0,
+    "kind": "namespace",
+    "name": "project5-check-336a65ecfb",
+    "namespace": null
+  }
+]

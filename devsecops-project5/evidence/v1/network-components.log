@@ -1,0 +1,6 @@
+NAME                         DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR            AGE   CONTAINERS    IMAGES                        SELECTOR
+daemonset.apps/calico-node   1         1         1       1            1           kubernetes.io/os=linux   10m   calico-node   quay.io/calico/node:v3.33.0   k8s-app=calico-node
+
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                IMAGES                                    SELECTOR
+deployment.apps/calico-kube-controllers   1/1     1            1           10m   calico-kube-controllers   quay.io/calico/calico:v3.33.0             k8s-app=calico-kube-controllers
+deployment.apps/coredns                   2/2     2            2           12m   coredns                   registry.k8s.io/coredns/coredns:v1.13.1   k8s-app=kube-dns

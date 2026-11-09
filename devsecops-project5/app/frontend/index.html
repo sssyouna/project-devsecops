@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stockroom · Project 5</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header><a class="brand" href="/">▦ <span>stockroom</span></a><span class="badge">LOCAL LAB · INSECURE BASELINE</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">PROJECT 05 / DEFENSE IN DEPTH</p><h1>A small inventory.<br>A layered experiment.</h1><p class="muted">Fictional equipment, real Kubernetes. Manage demonstration records across the frontend, API, and database.</p></div><div class="metric"><strong id="total">—</strong><span>units in stock</span></div></div>
+    <section aria-labelledby="inventory-title">
+      <div class="section-heading"><div><p class="eyebrow">WORKSPACE</p><h2 id="inventory-title">Inventory</h2></div><button id="refresh" class="secondary">Refresh records</button></div>
+      <p id="status" role="status" aria-live="polite">Connecting to the inventory API…</p>
+      <div class="table-wrap"><table><thead><tr><th>SKU</th><th>Equipment</th><th>Location</th><th>Quantity</th><th><span class="sr-only">Actions</span></th></tr></thead><tbody id="records"></tbody></table></div>
+      <p id="empty" hidden>No records yet. Add a fictional item below.</p>
+    </section>
+    <section aria-labelledby="form-title" class="editor">
+      <div><p class="eyebrow">RECORD DETAILS</p><h2 id="form-title">Add an item</h2><p class="muted">Use synthetic demonstration data only.</p></div>
+      <form id="item-form">
+        <label>SKU<input name="sku" maxlength="40" pattern="[A-Za-z0-9_\-]+" placeholder="DEMO-004" required></label>
+        <label>Equipment name<input name="name" maxlength="100" placeholder="Demo docking station" required></label>
+        <label>Location<input name="location" maxlength="80" placeholder="Fictional office C" required></label>
+        <label>Quantity<input name="quantity" type="number" min="0" max="1000000" step="1" value="1" required></label>
+        <div class="form-actions"><button id="save" type="submit">Add item</button><button id="cancel" type="button" class="secondary" hidden>Cancel edit</button></div>
+      </form>
+    </section>
+  </main>
+  <footer><span>Browser → Nginx → FastAPI → PostgreSQL</span><span>Synthetic data / Loopback access only</span></footer>
+</body>
+</html>

@@ -1,0 +1,2 @@
+liveness: {"status":"ok"}
+readiness: {"status":"ok","database":"reachable"}

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: demo-database
+type: Opaque
+stringData:
+  # Public, synthetic lab values. Never reuse outside this disposable cluster.
+  password: demo-only-password
+  database-url: postgresql://inventory:demo-only-password@postgres:5432/inventory

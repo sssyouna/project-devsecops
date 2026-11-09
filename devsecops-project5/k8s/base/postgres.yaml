@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      serviceAccountName: shared-workload
+      # INTENTIONALLY INSECURE: synthetic exports are world-writable and
+      # unnecessarily shared with the backend. PGDATA keeps its normal mode.
+      initContainers:
+        - name: prepare-demo-export
+          image: project5-postgres:17.6
+          imagePullPolicy: Never
+          command: [sh, -ec]
+          args:
+            - |
+              mkdir -p /storage/exports
+              if [ ! -f /storage/exports/fictional-payroll.csv ]; then
+                printf 'employee,salary,classification\nDEMO-PERSON-001,12345,SYNTHETIC-ONLY\n' > /storage/exports/fictional-payroll.csv
+              fi
+              chmod 0777 /storage/exports
+              chmod 0666 /storage/exports/fictional-payroll.csv
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+            - name: data
+              mountPath: /storage
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 200m, memory: 64Mi}
+      containers:
+        - name: postgres
+          image: project5-postgres:17.6
+          imagePullPolicy: Never
+          env:
+            - {name: POSTGRES_USER, value: inventory}
+            - {name: POSTGRES_DB, value: inventory}
+            - {name: PGDATA, value: /var/lib/postgresql/data/pgdata}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: demo-database, key: password}
+          ports:
+            - {name: postgres, containerPort: 5432}
+          startupProbe:
+            exec:
+              command: [sh, -ec, 'pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            periodSeconds: 2
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command: [sh, -ec, 'pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: [sh, -ec, 'pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            periodSeconds: 10
+            failureThreshold: 6
+          volumeMounts:
+            - {name: data, mountPath: /var/lib/postgresql/data}
+          resources:
+            requests: {cpu: 50m, memory: 64Mi}
+            limits: {cpu: 500m, memory: 256Mi}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  selector: {app: postgres}
+  ports:
+    - {name: postgres, port: 5432, targetPort: postgres}

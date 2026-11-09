@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: shared-workload
+automountServiceAccountToken: true
+---
+# INTENTIONALLY INSECURE: no workload requires these API permissions.
+# Scope is the lab namespace, never cluster-admin or host resources.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: excessive-workload-access
+rules:
+  - apiGroups: [""]
+    resources: [secrets, configmaps, pods, pods/exec, persistentvolumeclaims]
+    verbs: ["*"]
+  - apiGroups: [apps]
+    resources: [deployments]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: shared-workload-excessive-access
+subjects:
+  - kind: ServiceAccount
+    name: shared-workload
+    namespace: project5
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: excessive-workload-access

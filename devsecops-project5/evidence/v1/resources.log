@@ -1,0 +1,24 @@
+NAME                         STATUS   ROLES           AGE   VERSION
+project5-lab-control-plane   Ready    control-plane   31m   v1.35.0
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    1/1     1            1           25m
+deployment.apps/frontend   1/1     1            1           25m
+deployment.apps/postgres   1/1     1            1           25m
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/backend-766b69498f-76tmq   1/1     Running   0          19m
+pod/frontend-75d68cfc8-dkz96   1/1     Running   0          3m32s
+pod/postgres-866cf8d77-j9cdr   1/1     Running   0          19m
+
+NAME               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.96.39.16    <none>        8000/TCP   25m
+service/frontend   ClusterIP   10.96.197.30   <none>        8080/TCP   25m
+service/postgres   ClusterIP   10.96.235.48   <none>        5432/TCP   25m
+
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data   Bound    pvc-11e2ab95-77ac-40b7-9615-f47fe70dafdd   512Mi      RWO            standard       <unset>                 25m
+NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  31m
+backend-766b69498f-76tmq sha256:e3a2e4ebea2090e2c36b55374d47b5840f700ddc3aff91c4916062646c8fc68d
+frontend-75d68cfc8-dkz96 sha256:3cbe8fcd58dc548c82187155fbc134f0ac3dec7e01e8865ce8bd4147ad143a51
+postgres-866cf8d77-j9cdr sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8

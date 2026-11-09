@@ -1,0 +1,6 @@
+PASS browser started on virtual display
+PASS browser SKU pattern rejects spaces
+PASS browser create and table rendering
+PASS browser edit and reload persistence
+PASS browser delete
+PASS mobile viewport layout and no browser/application errors

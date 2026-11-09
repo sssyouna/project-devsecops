@@ -1,0 +1,1045 @@
+[
+  {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+      "labels": {
+        "phase2-run": "336a65ecfb"
+      },
+      "name": "project5-check-336a65ecfb"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Secret",
+    "metadata": {
+      "labels": {
+        "phase2-run": "336a65ecfb"
+      },
+      "name": "phase2-canary-336a65ecfb",
+      "namespace": "project5"
+    },
+    "stringData": {
+      "canary": "SYNTHETIC-ONLY-336a65ecfb"
+    },
+    "type": "Opaque"
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Secret",
+    "metadata": {
+      "labels": {
+        "phase2-run": "336a65ecfb"
+      },
+      "name": "phase2-canary-336a65ecfb",
+      "namespace": "project5-check-336a65ecfb"
+    },
+    "stringData": {
+      "canary": "SYNTHETIC-ONLY-336a65ecfb"
+    },
+    "type": "Opaque"
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "labels": {
+        "phase2-run": "336a65ecfb",
+        "role": "phase2-target"
+      },
+      "name": "target",
+      "namespace": "project5-check-336a65ecfb"
+    },
+    "spec": {
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python",
+            "-m",
+            "http.server",
+            "8081",
+            "--bind",
+            "0.0.0.0",
+            "--directory",
+            "/tmp"
+          ],
+          "image": "project5-backend:phase1",
+          "imagePullPolicy": "Never",
+          "name": "probe",
+          "readinessProbe": {
+            "httpGet": {
+              "path": "/",
+              "port": 8081
+            },
+            "periodSeconds": 2
+          },
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "24Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true
+          }
+        }
+      ],
+      "restartPolicy": "Never",
+      "securityContext": {
+        "runAsNonRoot": true,
+        "runAsUser": 65532,
+        "seccompProfile": {
+          "type": "RuntimeDefault"
+        }
+      },
+      "terminationGracePeriodSeconds": 1
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "labels": {
+        "phase2-run": "336a65ecfb"
+      },
+      "name": "target-deny",
+      "namespace": "project5-check-336a65ecfb"
+    },
+    "spec": {
+      "podSelector": {
+        "matchLabels": {
+          "role": "phase2-target"
+        }
+      },
+      "policyTypes": [
+        "Ingress"
+      ]
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Pod",
+    "metadata": {
+      "labels": {
+        "phase2-run": "336a65ecfb"
+      },
+      "name": "phase2-volume-336a65ecfb",
+      "namespace": "project5"
+    },
+    "spec": {
+      "automountServiceAccountToken": false,
+      "containers": [
+        {
+          "command": [
+            "python",
+            "-c",
+            "import time; time.sleep(3600)"
+          ],
+          "image": "project5-backend:phase1",
+          "imagePullPolicy": "Never",
+          "name": "probe",
+          "resources": {
+            "limits": {
+              "cpu": "250m",
+              "memory": "96Mi"
+            },
+            "requests": {
+              "cpu": "10m",
+              "memory": "24Mi"
+            }
+          },
+          "securityContext": {
+            "allowPrivilegeEscalation": false,
+            "capabilities": {
+              "drop": [
+                "ALL"
+              ]
+            },
+            "readOnlyRootFilesystem": true
+          },
+          "volumeMounts": [
+            {
+              "mountPath": "/storage",
+              "name": "data",
+              "readOnly": false
+            }
+          ]
+        }
+      ],
+      "restartPolicy": "Never",
+      "securityContext": {
+        "runAsNonRoot": true,
+        "runAsUser": 65532,
+        "seccompProfile": {
+          "type": "RuntimeDefault"
+        }
+      },
+      "terminationGracePeriodSeconds": 1,
+      "volumes": [
+        {
+          "name": "data",
+          "persistentVolumeClaim": {
+            "claimName": "postgres-data"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-restricted-control-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-privileged-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "privileged": true,
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-allow-privilege-escalation-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-sys-admin-capability-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "add": [
+                  "SYS_ADMIN"
+                ],
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-unconfined-seccomp-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true,
+              "seccompProfile": {
+                "type": "Unconfined"
+              }
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-writable-rootfs-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": false
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-root-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": false,
+          "runAsUser": 0,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-host-network-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "hostNetwork": true,
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-host-pid-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "hostPID": true,
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-host-ipc-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "hostIPC": true,
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-hostpath-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/admission-only",
+                "name": "admission-only",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1,
+        "volumes": [
+          {
+            "hostPath": {
+              "path": "/project5-synthetic-admission-only",
+              "type": "Directory"
+            },
+            "name": "admission-only"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-invalid-type-control-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "privileged": "not-a-boolean",
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-contradictory-privileged-control-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "privileged": true,
+              "readOnlyRootFilesystem": true
+            }
+          }
+        ],
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": true,
+          "runAsUser": 65532,
+          "seccompProfile": {
+            "type": "RuntimeDefault"
+          }
+        },
+        "terminationGracePeriodSeconds": 1
+      }
+    }
+  },
+  {
+    "dry_run_only": true,
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "labels": {
+          "phase2-run": "336a65ecfb"
+        },
+        "name": "phase2-dry-combined-privileged-host-access-336a65ecfb",
+        "namespace": "project5"
+      },
+      "spec": {
+        "automountServiceAccountToken": false,
+        "containers": [
+          {
+            "command": [
+              "python",
+              "-c",
+              "import time; time.sleep(3600)"
+            ],
+            "image": "project5-backend:phase1",
+            "imagePullPolicy": "Never",
+            "name": "probe",
+            "resources": {
+              "limits": {
+                "cpu": "250m",
+                "memory": "96Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "24Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": true,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "privileged": true,
+              "readOnlyRootFilesystem": true
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/admission-only",
+                "name": "admission-only",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "hostIPC": true,
+        "hostNetwork": true,
+        "hostPID": true,
+        "restartPolicy": "Never",
+        "securityContext": {
+          "runAsNonRoot": false,
+          "runAsUser": 0,
+          "seccompProfile": {
+            "type": "Unconfined"
+          }
+        },
+        "terminationGracePeriodSeconds": 1,
+        "volumes": [
+          {
+            "hostPath": {
+              "path": "/project5-synthetic-admission-only",
+              "type": "Directory"
+            },
+            "name": "admission-only"
+          }
+        ]
+      }
+    }
+  }
+]

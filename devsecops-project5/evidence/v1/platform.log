@@ -1,0 +1,97 @@
+$ kind version
+kind v0.31.0 go1.26.1 linux/amd64
+$ docker version --format {{.Server.Version}}
+28.5.2+dfsg4
+$ bash scripts/lab.sh kubectl version -o yaml
+clientVersion:
+  buildDate: "2025-12-17T12:41:05Z"
+  compiler: gc
+  gitCommit: 66452049f3d692768c39c797b21b793dce80314e
+  gitTreeState: clean
+  gitVersion: v1.35.0
+  goVersion: go1.25.5
+  major: "1"
+  minor: "35"
+  platform: linux/amd64
+kustomizeVersion: v5.7.1
+serverVersion:
+  buildDate: "2025-12-17T12:32:07Z"
+  compiler: gc
+  emulationMajor: "1"
+  emulationMinor: "35"
+  gitCommit: 66452049f3d692768c39c797b21b793dce80314e
+  gitTreeState: clean
+  gitVersion: v1.35.0
+  goVersion: go1.25.5
+  major: "1"
+  minCompatibilityMajor: "1"
+  minCompatibilityMinor: "34"
+  minor: "35"
+  platform: linux/amd64
+
+$ docker inspect project5-lab-control-plane --format {{json .HostConfig.PortBindings}}
+{"6443/tcp":[{"HostIp":"127.0.0.1","HostPort":"33719"}]}
+$ docker image inspect project5-backend:phase1 project5-frontend:phase1 project5-postgres:17.6 --format {{json .RepoTags}} {{.Id}}
+["project5-backend:phase1"] sha256:e3a2e4ebea2090e2c36b55374d47b5840f700ddc3aff91c4916062646c8fc68d
+["project5-frontend:phase1"] sha256:565b70db9443fdf31d331f5882e485bd34b5fc1d9e8a950aa3fe0c9cae86fd7e
+["postgres:17.6-alpine","project5-postgres:17.6"] sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8
+$ bash scripts/lab.sh kubectl get storageclass standard -o yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"storage.k8s.io/v1","kind":"StorageClass","metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"},"name":"standard"},"provisioner":"rancher.io/local-path","reclaimPolicy":"Delete","volumeBindingMode":"WaitForFirstConsumer"}
+    storageclass.kubernetes.io/is-default-class: "true"
+  creationTimestamp: "2026-11-09T17:30:04Z"
+  name: standard
+  resourceVersion: "349"
+  uid: 8119ccde-edad-4349-813c-e3a5b8e2936a
+provisioner: rancher.io/local-path
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
+$ bash scripts/lab.sh kubectl -n project5 get pvc postgres-data -o json
+{
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"annotations\":{},\"name\":\"postgres-data\",\"namespace\":\"project5\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"512Mi\"}},\"storageClassName\":\"standard\"}}\n",
+            "pv.kubernetes.io/bind-completed": "yes",
+            "pv.kubernetes.io/bound-by-controller": "yes",
+            "volume.beta.kubernetes.io/storage-provisioner": "rancher.io/local-path",
+            "volume.kubernetes.io/selected-node": "project5-lab-control-plane",
+            "volume.kubernetes.io/storage-provisioner": "rancher.io/local-path"
+        },
+        "creationTimestamp": "2026-11-09T17:36:11Z",
+        "finalizers": [
+            "kubernetes.io/pvc-protection"
+        ],
+        "name": "postgres-data",
+        "namespace": "project5",
+        "resourceVersion": "1419",
+        "uid": "11e2ab95-77ac-40b7-9615-f47fe70dafdd"
+    },
+    "spec": {
+        "accessModes": [
+            "ReadWriteOnce"
+        ],
+        "resources": {
+            "requests": {
+                "storage": "512Mi"
+            }
+        },
+        "storageClassName": "standard",
+        "volumeMode": "Filesystem",
+        "volumeName": "pvc-11e2ab95-77ac-40b7-9615-f47fe70dafdd"
+    },
+    "status": {
+        "accessModes": [
+            "ReadWriteOnce"
+        ],
+        "capacity": {
+            "storage": "512Mi"
+        },
+        "phase": "Bound"
+    }
+}

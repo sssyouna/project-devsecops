@@ -1,0 +1,11 @@
+{
+  "authoritative_run": "evidence/v1/phase2-20261109T191255Z-336a65ecfb",
+  "source_hashes_match": true,
+  "expectation_checks_passed": 15,
+  "no_jwt_strings_in_evidence": true,
+  "personal_kubeconfig_unchanged": true,
+  "initial_phase2_source_hashes_unchanged": true,
+  "valid_admission_specs_accepted": 12,
+  "invalid_admission_controls_rejected": 2,
+  "controlled_setuid_preconditions_verified": true
+}

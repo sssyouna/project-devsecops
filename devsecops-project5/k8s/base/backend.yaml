@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  selector:
+    matchLabels: {app: backend}
+  template:
+    metadata:
+      labels: {app: backend}
+    spec:
+      serviceAccountName: shared-workload
+      containers:
+        - name: backend
+          image: project5-backend:phase1
+          imagePullPolicy: Never
+          # Allow Service endpoint updates to settle before Uvicorn shuts down.
+          lifecycle:
+            preStop:
+              exec:
+                command: [python, -c, "import time; time.sleep(10)"]
+          securityContext:
+            runAsUser: 0
+            # INTENTIONALLY INSECURE: no capability drop, seccomp profile,
+            # non-root requirement, or read-only root filesystem.
+            allowPrivilegeEscalation: true
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef: {name: demo-database, key: database-url}
+          ports:
+            - {name: http, containerPort: 8000}
+          startupProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 2
+            failureThreshold: 90
+          readinessProbe:
+            httpGet: {path: /health/ready, port: http}
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 10
+          volumeMounts:
+            - name: unnecessary-export
+              mountPath: /lab-shared
+              subPath: exports
+              readOnly: false
+          resources:
+            requests: {cpu: 25m, memory: 48Mi}
+            limits: {cpu: 500m, memory: 192Mi}
+      volumes:
+        - name: unnecessary-export
+          persistentVolumeClaim:
+            claimName: postgres-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: ClusterIP
+  selector: {app: backend}
+  ports:
+    - {name: http, port: 8000, targetPort: http}

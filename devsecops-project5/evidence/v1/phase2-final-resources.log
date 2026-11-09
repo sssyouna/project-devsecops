@@ -1,0 +1,21 @@
+NAME                         STATUS   ROLES           AGE   VERSION
+project5-lab-control-plane   Ready    control-plane   11m   v1.35.0
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    1/1     1            1           6m57s
+deployment.apps/frontend   1/1     1            1           6m57s
+deployment.apps/postgres   1/1     1            1           6m57s
+
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/backend-675db7dd97-jcx7q    1/1     Running   0          6m57s
+pod/frontend-6d5cb49446-zvj2x   1/1     Running   0          6m57s
+pod/postgres-7cb5456846-8zrmg   1/1     Running   0          6m56s
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.96.110.139   <none>        8000/TCP   6m57s
+service/frontend   ClusterIP   10.96.90.33     <none>        8080/TCP   6m57s
+service/postgres   ClusterIP   10.96.127.95    <none>        5432/TCP   6m57s
+
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data   Bound    pvc-641ec459-4e2f-470f-b3d2-2d0a82aca567   512Mi      RWO            standard       <unset>                 6m57s
+NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  11m

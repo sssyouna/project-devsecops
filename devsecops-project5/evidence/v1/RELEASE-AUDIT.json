@@ -1,0 +1,128 @@
+{
+  "all_local_evidence_scanned": true,
+  "annotated_tag": "refs/tags/v1-insecure",
+  "baseline_application_and_test_hashes_unchanged": true,
+  "binary_review": {
+    "devsecops-project5/evidence/v1/frontend.png": {
+      "chunks": [
+        "IDAT",
+        "IEND",
+        "IHDR"
+      ],
+      "metadata_scan": "no text/EXIF chunks",
+      "type": "validation screenshot"
+    }
+  },
+  "checks": [
+    "JWTs",
+    "private keys/certificates",
+    "embedded kubeconfig material",
+    "provider API keys",
+    "literal bearer tokens",
+    "credential URLs",
+    "structured Secret data and credential fields",
+    "forbidden runtime/cache/credential files",
+    "PNG metadata"
+  ],
+  "cluster_recreated": false,
+  "evidence_content_policy": "Retained evidence bytes are unchanged; local startup/build/browser diagnostics remain on disk, ignored and excluded.",
+  "excluded_diagnostic_file_count": 14,
+  "file_sha256": {
+    ".gitignore": "f8db885d96198b09f984b0988a63de1d8dec8f5dffa9c1c388c1ea83fb37114d",
+    "README.md": "d893ad610aaee35c554c3bb71548e27a543bbec0e53d96508b8134d5e3f557ff",
+    "app/backend/.dockerignore": "87ff6b6bd915e44c20b674ff1b478b0637ad02ba5135da1a9d27dae99c85c791",
+    "app/backend/Dockerfile": "71ffd95254370b1c524a2eb29f69bb07ebc9c6f13acef80ecc8813a00d88cf4e",
+    "app/backend/main.py": "f3146cf23a8862f1daa920e133b3566464ede8d5d4310239d590d0033cf13562",
+    "app/backend/requirements.lock": "6bb6ea6dd14fc6bfcad141a468e0f3c5d6d0c36df7a6e41056640a1612addb86",
+    "app/backend/requirements.txt": "63e7ffcebe3400b305870e8e5a8d802673d5900bb5480df0dd9745d819df2cf8",
+    "app/frontend/.dockerignore": "16d30e4462189fb14dd611bdb708c510630c576a1f35b9383e89a4352da36c97",
+    "app/frontend/Dockerfile": "c7a53b0d6de6df49cad488efd09726d463e725d7a4172d92083059f522a3a6f2",
+    "app/frontend/app.js": "8a6a04b9971c14b1a31204ad61aa88bee9d97beab6af803a1a3ae75f87d5b2da",
+    "app/frontend/index.html": "bfffcc42177d7a92ea27b10d9bcfc010ceb255591eec9767789ed27f30b423de",
+    "app/frontend/nginx.conf": "d676018db550379f5bee69b01fb1c65afa92357025a3f172774b79df6f662a19",
+    "app/frontend/styles.css": "8de04d1962860cf1b2541c9e513a417b695200a15df8282eb976d1c284ed321c",
+    "evidence/v1/README.md": "7d6e3e406b6b0c6ca1442b8f0f74dfc2aa8843aa246d649f622b677d7d60ca0d",
+    "evidence/v1/SECURITY-ASSESSMENT.md": "aad928f8cd5e0e3086c1cc5f5d661e0ee3bab04cc2a6c20cc2d252f79c722313",
+    "evidence/v1/browser.log": "7eefd81feb7ed5e2556b54fd75a1de512115cbc88b0f66c5939a9b9b5462cad0",
+    "evidence/v1/frontend.png": "538e2af4810cab8645b02f75465144e84d1d879849b3ccc12f906f42e0498d4b",
+    "evidence/v1/functional.log": "40b7be54ae6747ddaad48595da5321cfda341a7d08d1e007e3e5db715002ecd5",
+    "evidence/v1/health.log": "bb71bfac5f889394d0c3fa6ad12f3aadbff8fbc43a6b19f1466b728509301d89",
+    "evidence/v1/image-load.log": "cabd3781f0a8fde5ba977ee222edf47eaefeecdc620b12e04d23671dcb31ea21",
+    "evidence/v1/network-components.log": "06028e9ad7b48f21970d0504692c2a565deb55fee2288a57adc57bf96b30e2b2",
+    "evidence/v1/phase2-20261109T190750Z-27e45afdb4/cleanup.json": "30d4271c5d12d1b1da4e4fcc34c9c02aa30ebb766ae3114dc9497711ee95fc9b",
+    "evidence/v1/phase2-20261109T190750Z-27e45afdb4/commands.jsonl": "11592faa5857fc9f9b0f7c05faff2952ea0adc24fd13367cc380dd3bb95715bc",
+    "evidence/v1/phase2-20261109T190750Z-27e45afdb4/environment.json": "1643e3fdb257c4c6aa57a2bedddd4c755aff8fb80f84c277aefd49c223af913e",
+    "evidence/v1/phase2-20261109T190750Z-27e45afdb4/fixtures.json": "9a318495db3923b37e275c3cc2c66c51f71b2889ad4636e0375dea51237ddb7f",
+    "evidence/v1/phase2-20261109T190750Z-27e45afdb4/integrity.json": "892d6239531e83bae24b68fd09616ffd41ad8bb49505f321a467e4002861f30f",
+    "evidence/v1/phase2-20261109T190750Z-27e45afdb4/results.json": "f033c7966b0375a0e672bb6b9038716e33018989fba2f3b6e727d43b8ceb1123",
+    "evidence/v1/phase2-20261109T191255Z-336a65ecfb/cleanup.json": "31adb9b86f4a188a94f640b511365003c3f3842ec7620898e56725f4d464cd53",
+    "evidence/v1/phase2-20261109T191255Z-336a65ecfb/commands.jsonl": "0047c670b8b7b633727391550a462bae789d600ab308fc055557e15b1edfa682",
+    "evidence/v1/phase2-20261109T191255Z-336a65ecfb/environment.json": "6ca96a32a8ff45c65d89a7844201de4c2b5ac9867a12c646d451d02094e7a064",
+    "evidence/v1/phase2-20261109T191255Z-336a65ecfb/fixtures.json": "cf8c53a84fbc2d2a9ff16c227457cf28c473fd8a6759a14d0fb2404989647655",
+    "evidence/v1/phase2-20261109T191255Z-336a65ecfb/integrity.json": "1cdacf0e8ee73324f6c7315fe296ee02a658b9497b7d3d40250a4d42dcd98533",
+    "evidence/v1/phase2-20261109T191255Z-336a65ecfb/results.json": "8d7bc1299414c384a4de7bd1fefe97be65a7c23741a9e2fbcbd8ed005f4ad261",
+    "evidence/v1/phase2-cluster-cleanup.log": "e4c3ed4b0623560ff794e73330e434e7266662563218e70742a2df7cb1ec1c51",
+    "evidence/v1/phase2-evidence-checks.json": "6531e325eadaa275e28f466c633c9409a5100d8df7750d12bad23e30518b54e2",
+    "evidence/v1/phase2-final-resources.log": "7e445d7fcf040236bc6fde90944c8ecbbe9024bb32fb0220618a9e309e64525f",
+    "evidence/v1/phase2-functional-after.log": "902aac80872f0129b2d9bb1fdad21d6832d66b320672378969f3ef1b2896105f",
+    "evidence/v1/phase2-functional-before.log": "14d8d08a4cfb4bd27189c6b6ef1fb2fcf7f640faf3fb1480036603b428ea61c3",
+    "evidence/v1/phase2-run.log": "ffae1ccafab667adda57439de1709290b42d01e837e343c1ef40dc854d090205",
+    "evidence/v1/platform.log": "33d9549926c362eb3c9a058505c7b0b1345554261c2cc0edfa983d911ae25903",
+    "evidence/v1/resources.log": "3100a22dfee1f776a2cccbc73ef7414a5c04d0cd576adf19794e9f1d4663eec9",
+    "evidence/v1/static-checks.log": "30abfed2f9fb61cbaffb93384648159a0d58c3cde60e408a8522994e804f9245",
+    "evidence/v2/README.md": "65e953b00dd49512ccf95522dc6d639b746fe58d6fb8458e2f86d02e3e132b7d",
+    "k8s/base/backend.yaml": "fad81f590fa1ffa257adfee074f7857abb88a4c5fb0559f10272e319d58bdfac",
+    "k8s/base/config.yaml": "043dbf95ffa092ab8650884c11e6edef99bd4dae7a601627de6bb902b48320ce",
+    "k8s/base/frontend.yaml": "58699fc4d0b3aacbd9374083a004ab84b0f5e5002da98e1f998df9ccad57d825",
+    "k8s/base/identity.yaml": "d2337819ac7f24ef0181a38c7bf8e948006966cd15cf3281512f0a0dec7c8f52",
+    "k8s/base/kustomization.yaml": "ab741dec0c0be010c86caa7d0346235da515333b4056b9df98a161780d330464",
+    "k8s/base/namespace.yaml": "26ab57a8e53135c5c5bc1974ce7329185a9fda0f75e3161e927f956b4b416f7c",
+    "k8s/base/postgres.yaml": "ce10057331e40e9ff1962916f3dc5cafb2e774f780cbbf4af58d4b8e57c78f48",
+    "k8s/kind.yaml": "e7c2e790ba67bde1102c3884985eece91046b1ee0c9aa1ccdf6816ca2e185b82",
+    "k8s/security/README.md": "f18925cacffbf2babce0b5c999dbda93ff46dc7417859a95357b0fe30d26211c",
+    "scripts/lab.sh": "837e0ae9b0410f16dfcbd0df70ee1b2d34f20755a25ab72bbec93a7e5c6fa209",
+    "tests/browser.py": "230dc3e438b1c042688b9133580fb637c8ca9147e149a3009e7af7a2e222a799",
+    "tests/functional.py": "da4242080588028c294419d32853cbcda959d00042bb4a4dbebb578548f2442a",
+    "tests/security/README.md": "28aa9f06c9aa6d748eff99a2f2503a2e7ab835b12aaae7e3d18da87e99b4ef59",
+    "tests/security/baseline.py": "83b7d2c93c754c9564cb57535d2c3bbce2c10c925abe7e47832785c69ebe026b",
+    "tests/security/probe.py": "452f4f1829bd2f77428adf17ef243d268e62b7c374fc013e5f1565666260e3c3"
+  },
+  "included_file_count": 59,
+  "issues": [],
+  "live_credentials_allowed": false,
+  "local_evidence_file_count": 45,
+  "manifest_note": "SHA-256 covers all included files except this audit document itself; committed contents are verified again from the Git index.",
+  "next_branch": "refs/heads/v2-secured",
+  "parent_main_commit": "f9d335f6aa2ae983f295e7e94761586ba7927aed",
+  "public_synthetic_fixtures": [
+    {
+      "classification": "non-authenticating synthetic canary",
+      "path": "devsecops-project5/evidence/v1/phase2-20261109T190750Z-27e45afdb4/commands.jsonl"
+    },
+    {
+      "classification": "non-authenticating synthetic canary",
+      "path": "devsecops-project5/evidence/v1/phase2-20261109T190750Z-27e45afdb4/fixtures.json"
+    },
+    {
+      "classification": "non-authenticating synthetic canary",
+      "path": "devsecops-project5/evidence/v1/phase2-20261109T191255Z-336a65ecfb/commands.jsonl"
+    },
+    {
+      "classification": "non-authenticating synthetic canary",
+      "path": "devsecops-project5/evidence/v1/phase2-20261109T191255Z-336a65ecfb/fixtures.json"
+    },
+    {
+      "classification": "fixed public demo DSN",
+      "path": "devsecops-project5/k8s/base/config.yaml"
+    },
+    {
+      "classification": "fixed public demo fixture",
+      "path": "devsecops-project5/k8s/base/config.yaml"
+    }
+  ],
+  "purpose": "Offline audit of the approved Phase 1/2 baseline before local Git release organization",
+  "release_branch": "refs/heads/v1-insecure",
+  "scope_limit": "Pattern and structured-data review plus visual review of the synthetic inventory screenshot; not a general guarantee against every possible secret format.",
+  "screenshot_visual_review": "Fictional inventory records only; no credential content visible",
+  "secret_objects_reviewed": 19
+}

@@ -1,0 +1,800 @@
+{
+  "baseline": {
+    "application_network_policies": [],
+    "deployment/backend": {
+      "spec_sha256": "0a0549ef32c6dae6a31332d5f36b5021e8eaf8d85743225f7d619b4c597c9039",
+      "uid": "bb4f9601-05d6-486d-93f9-4a790627721e"
+    },
+    "deployment/frontend": {
+      "spec_sha256": "01a25af68879a57ee96480793f7851c1c791ff6940de928c1d572e3a58d2f044",
+      "uid": "420896aa-254f-4dfe-9e1f-50763d8578cd"
+    },
+    "deployment/postgres": {
+      "spec_sha256": "111bb13ce9a4a8bc17ad9b65948709d11934b07bd7581494873f622cdc800694",
+      "uid": "0f669b1b-7c01-4fe2-91f9-5d177df5cf64"
+    },
+    "namespace/project5": {
+      "labels": {
+        "kubernetes.io/metadata.name": "project5",
+        "pod-security.kubernetes.io/enforce": "privileged",
+        "pod-security.kubernetes.io/enforce-version": "v1.35",
+        "project5-lab": "true"
+      },
+      "object_sha256": "f228d4a413be015bc037caef65b62f40441f56c697312950ff2aa358b26bcc73",
+      "uid": "bac3200e-ffbf-4793-a72e-763cd513d88f"
+    },
+    "pods": [
+      {
+        "image_ids": [
+          "sha256:e3a2e4ebea2090e2c36b55374d47b5840f700ddc3aff91c4916062646c8fc68d"
+        ],
+        "name": "backend-675db7dd97-jcx7q",
+        "uid": "27bcb186-04e7-48f9-99a9-e6557fb21906"
+      },
+      {
+        "image_ids": [
+          "sha256:3cbe8fcd58dc548c82187155fbc134f0ac3dec7e01e8865ce8bd4147ad143a51"
+        ],
+        "name": "frontend-6d5cb49446-zvj2x",
+        "uid": "b5393298-7e1d-41fb-88b1-7810830c0794"
+      },
+      {
+        "image_ids": [
+          "sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8"
+        ],
+        "name": "postgres-7cb5456846-8zrmg",
+        "uid": "0394397c-4493-4fcb-8ed2-71eb230c0e2d"
+      }
+    ],
+    "pvc": {
+      "spec_sha256": "b8796115bb800c15d8d1a1dfe6e7388d6abc523384fb9372c0248c678dc51629",
+      "uid": "641ec459-4e2f-470f-b3d2-2d0a82aca567",
+      "volume": "pvc-641ec459-4e2f-470f-b3d2-2d0a82aca567"
+    },
+    "role/excessive-workload-access": {
+      "labels": {},
+      "object_sha256": "a0ac68fab3635ce1f30fd617a6a219b5d9e61f78d69fefc40aa7e24fbc5008da",
+      "uid": "3c686cd3-f4be-4d9e-9e86-3059e5f91636"
+    },
+    "rolebinding/shared-workload-excessive-access": {
+      "labels": {},
+      "object_sha256": "8d9d78a8da9fc0448785766ccc2498d91edaff70f45eb0448eb8cfe1c322c88f",
+      "uid": "b05adc93-0f1c-49c5-b650-ea9f5b73c2a1"
+    },
+    "service/backend": "7616205320e075aca661994c88c152171d32224be5acaff29963503d1d5a9fc1",
+    "service/frontend": "2b093a0ae822f2ef5d751bb628095c2a08f7e39f3b052f9d0a2fa6fcd875ba27",
+    "service/postgres": "e0ddacf6c7f6efd0ecacd411cb2aef842a4d86b6d6be7983cfd6b372cc24bdc9",
+    "serviceaccount/shared-workload": {
+      "labels": {},
+      "object_sha256": "b08deca9dee46ca9c3761cbafac6c15e024b1eae5b94b6d1d1edb0d455422c0e",
+      "uid": "6a097cfa-e6f7-4fe4-b86c-32b4dcdb3960"
+    }
+  },
+  "cluster_version": {
+    "clientVersion": {
+      "buildDate": "2025-12-17T12:41:05Z",
+      "compiler": "gc",
+      "gitCommit": "66452049f3d692768c39c797b21b793dce80314e",
+      "gitTreeState": "clean",
+      "gitVersion": "v1.35.0",
+      "goVersion": "go1.25.5",
+      "major": "1",
+      "minor": "35",
+      "platform": "linux/amd64"
+    },
+    "kustomizeVersion": "v5.7.1",
+    "serverVersion": {
+      "buildDate": "2025-12-17T12:32:07Z",
+      "compiler": "gc",
+      "emulationMajor": "1",
+      "emulationMinor": "35",
+      "gitCommit": "66452049f3d692768c39c797b21b793dce80314e",
+      "gitTreeState": "clean",
+      "gitVersion": "v1.35.0",
+      "goVersion": "go1.25.5",
+      "major": "1",
+      "minCompatibilityMajor": "1",
+      "minCompatibilityMinor": "34",
+      "minor": "35",
+      "platform": "linux/amd64"
+    }
+  },
+  "cni": {
+    "apiVersion": "apps/v1",
+    "kind": "DaemonSet",
+    "metadata": {
+      "annotations": {
+        "deprecated.daemonset.template.generation": "1"
+      },
+      "creationTimestamp": "2026-11-09T19:04:49Z",
+      "generation": 1,
+      "labels": {
+        "k8s-app": "calico-node"
+      },
+      "name": "calico-node",
+      "namespace": "kube-system",
+      "resourceVersion": "802",
+      "uid": "381ea44e-9115-4aec-be8d-e51960850a68"
+    },
+    "spec": {
+      "revisionHistoryLimit": 10,
+      "selector": {
+        "matchLabels": {
+          "k8s-app": "calico-node"
+        }
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "k8s-app": "calico-node"
+          }
+        },
+        "spec": {
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "DATASTORE_TYPE",
+                  "value": "kubernetes"
+                },
+                {
+                  "name": "WAIT_FOR_DATASTORE",
+                  "value": "true"
+                },
+                {
+                  "name": "NODENAME",
+                  "valueFrom": {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "spec.nodeName"
+                    }
+                  }
+                },
+                {
+                  "name": "CALICO_NETWORKING_BACKEND",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "calico_backend",
+                      "name": "calico-config"
+                    }
+                  }
+                },
+                {
+                  "name": "CLUSTER_TYPE",
+                  "value": "k8s,bgp"
+                },
+                {
+                  "name": "IP",
+                  "value": "autodetect"
+                },
+                {
+                  "name": "CALICO_IPV4POOL_IPIP",
+                  "value": "Always"
+                },
+                {
+                  "name": "CALICO_IPV4POOL_VXLAN",
+                  "value": "Never"
+                },
+                {
+                  "name": "CALICO_IPV6POOL_VXLAN",
+                  "value": "Never"
+                },
+                {
+                  "name": "FELIX_IPINIPMTU",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "veth_mtu",
+                      "name": "calico-config"
+                    }
+                  }
+                },
+                {
+                  "name": "FELIX_VXLANMTU",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "veth_mtu",
+                      "name": "calico-config"
+                    }
+                  }
+                },
+                {
+                  "name": "FELIX_WIREGUARDMTU",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "veth_mtu",
+                      "name": "calico-config"
+                    }
+                  }
+                },
+                {
+                  "name": "CALICO_DISABLE_FILE_LOGGING",
+                  "value": "true"
+                },
+                {
+                  "name": "FELIX_DEFAULTENDPOINTTOHOSTACTION",
+                  "value": "ACCEPT"
+                },
+                {
+                  "name": "FELIX_IPV6SUPPORT",
+                  "value": "false"
+                },
+                {
+                  "name": "FELIX_HEALTHENABLED",
+                  "value": "true"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "kubernetes-services-endpoint",
+                    "optional": true
+                  }
+                }
+              ],
+              "image": "quay.io/calico/node:v3.33.0",
+              "imagePullPolicy": "IfNotPresent",
+              "lifecycle": {
+                "preStop": {
+                  "exec": {
+                    "command": [
+                      "calico",
+                      "component",
+                      "node",
+                      "shutdown"
+                    ]
+                  }
+                }
+              },
+              "livenessProbe": {
+                "exec": {
+                  "command": [
+                    "calico",
+                    "component",
+                    "node",
+                    "health",
+                    "--felix-live",
+                    "--bird-live"
+                  ]
+                },
+                "failureThreshold": 6,
+                "initialDelaySeconds": 10,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 10
+              },
+              "name": "calico-node",
+              "readinessProbe": {
+                "exec": {
+                  "command": [
+                    "calico",
+                    "component",
+                    "node",
+                    "health",
+                    "--felix-ready",
+                    "--bird-ready"
+                  ]
+                },
+                "failureThreshold": 3,
+                "periodSeconds": 10,
+                "successThreshold": 1,
+                "timeoutSeconds": 10
+              },
+              "resources": {
+                "requests": {
+                  "cpu": "250m"
+                }
+              },
+              "securityContext": {
+                "privileged": true
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/host/etc/cni/net.d",
+                  "name": "cni-net-dir"
+                },
+                {
+                  "mountPath": "/lib/modules",
+                  "name": "lib-modules",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/run/xtables.lock",
+                  "name": "xtables-lock"
+                },
+                {
+                  "mountPath": "/var/run/calico",
+                  "name": "var-run-calico"
+                },
+                {
+                  "mountPath": "/var/lib/calico",
+                  "name": "var-lib-calico"
+                },
+                {
+                  "mountPath": "/var/run/nodeagent",
+                  "name": "policysync"
+                },
+                {
+                  "mountPath": "/sys/fs/bpf",
+                  "name": "bpffs"
+                },
+                {
+                  "mountPath": "/sys/kernel/security",
+                  "name": "sys-kernel-security",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/log/calico/cni",
+                  "name": "cni-log-dir",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "dnsPolicy": "ClusterFirst",
+          "hostNetwork": true,
+          "initContainers": [
+            {
+              "command": [
+                "/usr/bin/calico-ipam",
+                "-upgrade"
+              ],
+              "env": [
+                {
+                  "name": "KUBERNETES_NODE_NAME",
+                  "valueFrom": {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "spec.nodeName"
+                    }
+                  }
+                },
+                {
+                  "name": "CALICO_NETWORKING_BACKEND",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "calico_backend",
+                      "name": "calico-config"
+                    }
+                  }
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "kubernetes-services-endpoint",
+                    "optional": true
+                  }
+                }
+              ],
+              "image": "quay.io/calico/calico:v3.33.0",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "upgrade-ipam",
+              "resources": {},
+              "securityContext": {
+                "privileged": true,
+                "runAsUser": 0
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/cni/networks",
+                  "name": "host-local-net-dir"
+                },
+                {
+                  "mountPath": "/host/opt/cni/bin",
+                  "name": "cni-bin-dir"
+                }
+              ]
+            },
+            {
+              "image": "quay.io/calico/third-party-cni-plugins:v3.33.0",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "cni-plugins",
+              "resources": {},
+              "securityContext": {
+                "runAsUser": 0
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/stage",
+                  "name": "cni-plugins-stage"
+                }
+              ]
+            },
+            {
+              "args": [
+                "component",
+                "cni",
+                "install"
+              ],
+              "env": [
+                {
+                  "name": "CNI_CONF_NAME",
+                  "value": "10-calico.conflist"
+                },
+                {
+                  "name": "CNI_NETWORK_CONFIG",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "cni_network_config",
+                      "name": "calico-config"
+                    }
+                  }
+                },
+                {
+                  "name": "KUBERNETES_NODE_NAME",
+                  "valueFrom": {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "spec.nodeName"
+                    }
+                  }
+                },
+                {
+                  "name": "CNI_MTU",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "veth_mtu",
+                      "name": "calico-config"
+                    }
+                  }
+                },
+                {
+                  "name": "SLEEP",
+                  "value": "false"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "kubernetes-services-endpoint",
+                    "optional": true
+                  }
+                }
+              ],
+              "image": "quay.io/calico/calico:v3.33.0",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "install-cni",
+              "resources": {},
+              "securityContext": {
+                "privileged": true,
+                "runAsUser": 0
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/host/opt/cni/bin",
+                  "name": "cni-bin-dir"
+                },
+                {
+                  "mountPath": "/host/etc/cni/net.d",
+                  "name": "cni-net-dir"
+                },
+                {
+                  "mountPath": "/opt/cni/bin",
+                  "name": "cni-plugins-stage"
+                }
+              ]
+            },
+            {
+              "command": [
+                "calico",
+                "component",
+                "node",
+                "init",
+                "--best-effort"
+              ],
+              "image": "quay.io/calico/node:v3.33.0",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "ebpf-bootstrap",
+              "resources": {},
+              "securityContext": {
+                "privileged": true
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/sys/fs",
+                  "mountPropagation": "Bidirectional",
+                  "name": "sys-fs"
+                },
+                {
+                  "mountPath": "/var/run/calico",
+                  "mountPropagation": "Bidirectional",
+                  "name": "var-run-calico"
+                },
+                {
+                  "mountPath": "/nodeproc",
+                  "name": "nodeproc",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "nodeSelector": {
+            "kubernetes.io/os": "linux"
+          },
+          "priorityClassName": "system-node-critical",
+          "restartPolicy": "Always",
+          "schedulerName": "default-scheduler",
+          "securityContext": {
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccount": "calico-node",
+          "serviceAccountName": "calico-node",
+          "terminationGracePeriodSeconds": 0,
+          "tolerations": [
+            {
+              "effect": "NoSchedule",
+              "operator": "Exists"
+            },
+            {
+              "key": "CriticalAddonsOnly",
+              "operator": "Exists"
+            },
+            {
+              "effect": "NoExecute",
+              "operator": "Exists"
+            }
+          ],
+          "volumes": [
+            {
+              "hostPath": {
+                "path": "/lib/modules",
+                "type": ""
+              },
+              "name": "lib-modules"
+            },
+            {
+              "hostPath": {
+                "path": "/var/run/calico",
+                "type": "DirectoryOrCreate"
+              },
+              "name": "var-run-calico"
+            },
+            {
+              "hostPath": {
+                "path": "/var/lib/calico",
+                "type": "DirectoryOrCreate"
+              },
+              "name": "var-lib-calico"
+            },
+            {
+              "hostPath": {
+                "path": "/run/xtables.lock",
+                "type": "FileOrCreate"
+              },
+              "name": "xtables-lock"
+            },
+            {
+              "hostPath": {
+                "path": "/sys/fs/",
+                "type": "DirectoryOrCreate"
+              },
+              "name": "sys-fs"
+            },
+            {
+              "hostPath": {
+                "path": "/sys/fs/bpf",
+                "type": "Directory"
+              },
+              "name": "bpffs"
+            },
+            {
+              "hostPath": {
+                "path": "/sys/kernel/security",
+                "type": ""
+              },
+              "name": "sys-kernel-security"
+            },
+            {
+              "hostPath": {
+                "path": "/proc",
+                "type": ""
+              },
+              "name": "nodeproc"
+            },
+            {
+              "hostPath": {
+                "path": "/opt/cni/bin",
+                "type": "DirectoryOrCreate"
+              },
+              "name": "cni-bin-dir"
+            },
+            {
+              "emptyDir": {},
+              "name": "cni-plugins-stage"
+            },
+            {
+              "hostPath": {
+                "path": "/etc/cni/net.d",
+                "type": ""
+              },
+              "name": "cni-net-dir"
+            },
+            {
+              "hostPath": {
+                "path": "/var/log/calico/cni",
+                "type": ""
+              },
+              "name": "cni-log-dir"
+            },
+            {
+              "hostPath": {
+                "path": "/var/lib/cni/networks",
+                "type": ""
+              },
+              "name": "host-local-net-dir"
+            },
+            {
+              "hostPath": {
+                "path": "/var/run/nodeagent",
+                "type": "DirectoryOrCreate"
+              },
+              "name": "policysync"
+            }
+          ]
+        }
+      },
+      "updateStrategy": {
+        "rollingUpdate": {
+          "maxSurge": 0,
+          "maxUnavailable": 1
+        },
+        "type": "RollingUpdate"
+      }
+    },
+    "status": {
+      "currentNumberScheduled": 1,
+      "desiredNumberScheduled": 1,
+      "numberAvailable": 1,
+      "numberMisscheduled": 0,
+      "numberReady": 1,
+      "observedGeneration": 1,
+      "updatedNumberScheduled": 1
+    }
+  },
+  "database": {
+    "create_database": true,
+    "create_role": true,
+    "database_server_serviceaccount_file_read": {
+      "allowed": true,
+      "subject_only": "system:serviceaccount:project5:shared-workload"
+    },
+    "database_user": "inventory",
+    "inventory_privileges": {
+      "DELETE": true,
+      "INSERT": true,
+      "SELECT": true,
+      "UPDATE": true
+    },
+    "row_count": 3,
+    "rows_sha256": "16ab703b9d23830c0070316d125bd8400edf2c078de4bba01634f558c5c2c909",
+    "sequence": [
+      8,
+      true
+    ],
+    "superuser": true,
+    "temporary_table_write_then_rollback": true
+  },
+  "namespace": {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Namespace\",\"metadata\":{\"annotations\":{},\"labels\":{\"pod-security.kubernetes.io/enforce\":\"privileged\",\"pod-security.kubernetes.io/enforce-version\":\"v1.35\",\"project5-lab\":\"true\"},\"name\":\"project5\"}}\n"
+      },
+      "creationTimestamp": "2026-11-09T19:07:14Z",
+      "labels": {
+        "kubernetes.io/metadata.name": "project5",
+        "pod-security.kubernetes.io/enforce": "privileged",
+        "pod-security.kubernetes.io/enforce-version": "v1.35",
+        "project5-lab": "true"
+      },
+      "name": "project5",
+      "resourceVersion": "998",
+      "uid": "bac3200e-ffbf-4793-a72e-763cd513d88f"
+    },
+    "spec": {
+      "finalizers": [
+        "kubernetes"
+      ]
+    },
+    "status": {
+      "phase": "Active"
+    }
+  },
+  "probe_sha256": "452f4f1829bd2f77428adf17ef243d268e62b7c374fc013e5f1565666260e3c3",
+  "role": {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "Role",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"name\":\"excessive-workload-access\",\"namespace\":\"project5\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\",\"configmaps\",\"pods\",\"pods/exec\",\"persistentvolumeclaims\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"*\"]}]}\n"
+      },
+      "creationTimestamp": "2026-11-09T19:07:14Z",
+      "name": "excessive-workload-access",
+      "namespace": "project5",
+      "resourceVersion": "1002",
+      "uid": "3c686cd3-f4be-4d9e-9e86-3059e5f91636"
+    },
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "secrets",
+          "configmaps",
+          "pods",
+          "pods/exec",
+          "persistentvolumeclaims"
+        ],
+        "verbs": [
+          "*"
+        ]
+      },
+      {
+        "apiGroups": [
+          "apps"
+        ],
+        "resources": [
+          "deployments"
+        ],
+        "verbs": [
+          "*"
+        ]
+      }
+    ]
+  },
+  "runner_sha256": "83b7d2c93c754c9564cb57535d2c3bbce2c10c925abe7e47832785c69ebe026b",
+  "source_sha256": {
+    "app/backend/.dockerignore": "87ff6b6bd915e44c20b674ff1b478b0637ad02ba5135da1a9d27dae99c85c791",
+    "app/backend/Dockerfile": "71ffd95254370b1c524a2eb29f69bb07ebc9c6f13acef80ecc8813a00d88cf4e",
+    "app/backend/main.py": "f3146cf23a8862f1daa920e133b3566464ede8d5d4310239d590d0033cf13562",
+    "app/backend/requirements.lock": "6bb6ea6dd14fc6bfcad141a468e0f3c5d6d0c36df7a6e41056640a1612addb86",
+    "app/backend/requirements.txt": "63e7ffcebe3400b305870e8e5a8d802673d5900bb5480df0dd9745d819df2cf8",
+    "app/frontend/.dockerignore": "16d30e4462189fb14dd611bdb708c510630c576a1f35b9383e89a4352da36c97",
+    "app/frontend/Dockerfile": "c7a53b0d6de6df49cad488efd09726d463e725d7a4172d92083059f522a3a6f2",
+    "app/frontend/app.js": "8a6a04b9971c14b1a31204ad61aa88bee9d97beab6af803a1a3ae75f87d5b2da",
+    "app/frontend/index.html": "bfffcc42177d7a92ea27b10d9bcfc010ceb255591eec9767789ed27f30b423de",
+    "app/frontend/nginx.conf": "d676018db550379f5bee69b01fb1c65afa92357025a3f172774b79df6f662a19",
+    "app/frontend/styles.css": "8de04d1962860cf1b2541c9e513a417b695200a15df8282eb976d1c284ed321c",
+    "k8s/base/backend.yaml": "fad81f590fa1ffa257adfee074f7857abb88a4c5fb0559f10272e319d58bdfac",
+    "k8s/base/config.yaml": "043dbf95ffa092ab8650884c11e6edef99bd4dae7a601627de6bb902b48320ce",
+    "k8s/base/frontend.yaml": "58699fc4d0b3aacbd9374083a004ab84b0f5e5002da98e1f998df9ccad57d825",
+    "k8s/base/identity.yaml": "d2337819ac7f24ef0181a38c7bf8e948006966cd15cf3281512f0a0dec7c8f52",
+    "k8s/base/kustomization.yaml": "ab741dec0c0be010c86caa7d0346235da515333b4056b9df98a161780d330464",
+    "k8s/base/namespace.yaml": "26ab57a8e53135c5c5bc1974ce7329185a9fda0f75e3161e927f956b4b416f7c",
+    "k8s/base/postgres.yaml": "ce10057331e40e9ff1962916f3dc5cafb2e774f780cbbf4af58d4b8e57c78f48",
+    "k8s/kind.yaml": "e7c2e790ba67bde1102c3884985eece91046b1ee0c9aa1ccdf6816ca2e185b82",
+    "k8s/security/README.md": "f18925cacffbf2babce0b5c999dbda93ff46dc7417859a95357b0fe30d26211c",
+    "scripts/lab.sh": "837e0ae9b0410f16dfcbd0df70ee1b2d34f20755a25ab72bbec93a7e5c6fa209"
+  },
+  "storage_class": {
+    "apiVersion": "storage.k8s.io/v1",
+    "kind": "StorageClass",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"StorageClass\",\"metadata\":{\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"},\"name\":\"standard\"},\"provisioner\":\"rancher.io/local-path\",\"reclaimPolicy\":\"Delete\",\"volumeBindingMode\":\"WaitForFirstConsumer\"}\n",
+        "storageclass.kubernetes.io/is-default-class": "true"
+      },
+      "creationTimestamp": "2026-11-09T19:02:37Z",
+      "name": "standard",
+      "resourceVersion": "362",
+      "uid": "87ab4d8b-f5a5-479c-b182-242c0fd76242"
+    },
+    "provisioner": "rancher.io/local-path",
+    "reclaimPolicy": "Delete",
+    "volumeBindingMode": "WaitForFirstConsumer"
+  }
+}
