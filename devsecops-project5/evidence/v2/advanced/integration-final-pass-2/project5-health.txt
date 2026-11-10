@@ -1,0 +1,14 @@
+NAME                            READY   STATUS    RESTARTS   AGE     IP               NODE                         NOMINATED NODE   READINESS GATES
+pod/backend-7dcbd5f5d-7x9pl     1/1     Running   0          6m59s   192.168.138.14   project5-lab-control-plane   <none>           <none>
+pod/frontend-7dc68cf4cd-wct96   1/1     Running   0          10m     192.168.138.5    project5-lab-control-plane   <none>           <none>
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                     SELECTOR
+deployment.apps/backend    1/1     1            1           10m   backend      project5-backend:native    app=backend
+deployment.apps/frontend   1/1     1            1           10m   frontend     project5-frontend:native   app=frontend
+
+NAME                                                    POD-SELECTOR                AGE
+networkpolicy.networking.k8s.io/application-dns         app in (backend,frontend)   10m
+networkpolicy.networking.k8s.io/backend-from-frontend   app=backend                 10m
+networkpolicy.networking.k8s.io/backend-to-database     app=backend                 10m
+networkpolicy.networking.k8s.io/default-deny            <none>                      10m
+networkpolicy.networking.k8s.io/frontend-to-backend     app=frontend                10m

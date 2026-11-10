@@ -1,0 +1,142 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: project5-approved-images
+  annotations:
+    policies.kyverno.io/title: Approved Project 5 image sources
+    policies.kyverno.io/category: Supply Chain
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Project 5 workloads in the lab must use the locally built project5 image
+      repositories. This is separate from Pod Security Admission, which does
+      not establish image provenance.
+spec:
+  admission: true
+  background: true
+  validationFailureAction: Enforce
+  rules:
+    - name: require-approved-container-images
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaceSelector:
+                matchExpressions:
+                  - key: kubernetes.io/metadata.name
+                    operator: In
+                    values:
+                      - project5
+                      - project5-data
+      validate:
+        message: "Project 5 Pods must use an approved project5 image repository."
+        foreach:
+          - list: "request.object.spec.containers[]"
+            deny:
+              conditions:
+                any:
+                  - key: "{{ element.image }}"
+                    operator: AnyNotIn
+                    value:
+                      - "project5-backend:native"
+                      - "project5-frontend:native"
+                      - "project5-postgres:17.6"
+          - list: "request.object.spec.initContainers[]"
+            deny:
+              conditions:
+                any:
+                  - key: "{{ element.image }}"
+                    operator: AnyNotIn
+                    value:
+                      - "project5-backend:native"
+                      - "project5-frontend:native"
+                      - "project5-postgres:17.6"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: project5-resource-requirements
+  annotations:
+    policies.kyverno.io/title: Project 5 resource requirements
+    policies.kyverno.io/category: Reliability
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Project 5 containers must declare CPU and memory requests and limits.
+      This prevents future workload additions from bypassing the resource
+      budget used by the constrained lab VM.
+spec:
+  admission: true
+  background: true
+  validationFailureAction: Enforce
+  rules:
+    - name: require-container-resources
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              namespaceSelector:
+                matchExpressions:
+                  - key: kubernetes.io/metadata.name
+                    operator: In
+                    values:
+                      - project5
+                      - project5-data
+      validate:
+        message: "Every Project 5 container must declare CPU and memory requests and limits."
+        foreach:
+          - list: "request.object.spec.containers[]"
+            pattern:
+              resources:
+                requests:
+                  cpu: "*"
+                  memory: "*"
+                limits:
+                  cpu: "*"
+                  memory: "*"
+          - list: "request.object.spec.initContainers[]"
+            pattern:
+              resources:
+                requests:
+                  cpu: "*"
+                  memory: "*"
+                limits:
+                  cpu: "*"
+                  memory: "*"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: project5-immutable-protected-images
+  annotations:
+    policies.kyverno.io/title: Immutable images for protected Project 5 workloads
+    policies.kyverno.io/category: Supply Chain
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/description: >-
+      Workloads explicitly marked with image-policy=digest must use image
+      references containing a sha256 digest. The opt-in label preserves the
+      offline lab's local tag-based images while allowing protected workloads
+      to require immutable references.
+spec:
+  admission: true
+  background: true
+  validationFailureAction: Audit
+  rules:
+    - name: require-digests-on-protected-workloads
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              selector:
+                matchLabels:
+                  security.project5.io/image-policy: digest
+      validate:
+        message: "Protected Project 5 images must use immutable sha256 digest references."
+        foreach:
+          - list: "request.object.spec.containers[]"
+            pattern:
+              image: "*@sha256:*"
+          - list: "request.object.spec.initContainers[]"
+            pattern:
+              image: "*@sha256:*"

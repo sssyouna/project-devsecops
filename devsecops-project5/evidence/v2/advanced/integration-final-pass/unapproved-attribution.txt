@@ -1,0 +1,2 @@
+project5-approved-images:
+  require-approved-container-images: 'validation failure: Project 5 Pods must use an approved project5 image repository.'

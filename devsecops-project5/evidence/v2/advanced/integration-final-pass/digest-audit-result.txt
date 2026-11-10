@@ -1,0 +1,1 @@
+pod/kyverno-digest-audit serverside-applied

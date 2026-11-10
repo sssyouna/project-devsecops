@@ -1,0 +1,37 @@
+NAME                         STATUS   ROLES           AGE   VERSION
+project5-lab-control-plane   Ready    control-plane   10m   v1.35.0
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    1/1     1            1           5m44s
+deployment.apps/frontend   1/1     1            1           5m44s
+
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/backend-698d86d79c-t4p9p    1/1     Running   0          5m44s
+pod/frontend-7dc68cf4cd-jpl5b   1/1     Running   0          5m44s
+
+NAME               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.96.143.0    <none>        8000/TCP   5m45s
+service/frontend   ClusterIP   10.96.249.88   <none>        8080/TCP   5m45s
+
+NAME                                                    POD-SELECTOR                AGE
+networkpolicy.networking.k8s.io/application-dns         app in (backend,frontend)   5m42s
+networkpolicy.networking.k8s.io/backend-from-frontend   app=backend                 5m41s
+networkpolicy.networking.k8s.io/backend-to-database     app=backend                 5m41s
+networkpolicy.networking.k8s.io/default-deny            <none>                      5m41s
+networkpolicy.networking.k8s.io/frontend-to-backend     app=frontend                5m41s
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/postgres   1/1     1            1           5m45s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/postgres-549cb5f7b-tc8tq   1/1     Running   0          5m45s
+
+NAME               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/postgres   ClusterIP   10.96.41.114   <none>        5432/TCP   5m46s
+
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data   Bound    pvc-44c9003f-2ab6-4b4d-a166-dda2cf7d4163   512Mi      RWO            standard       <unset>                 5m46s
+
+NAME                                                    POD-SELECTOR   AGE
+networkpolicy.networking.k8s.io/database-from-backend   app=postgres   5m45s
+networkpolicy.networking.k8s.io/default-deny            <none>         5m43s
+NAME                 PROVISIONER             RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+standard (default)   rancher.io/local-path   Delete          WaitForFirstConsumer   false                  9m52s

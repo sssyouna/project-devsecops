@@ -1,0 +1,27 @@
+NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kyverno-admission-controller    1/1     1            1           33s
+deployment.apps/kyverno-background-controller   1/1     1            1           33s
+deployment.apps/kyverno-cleanup-controller      1/1     1            1           33s
+deployment.apps/kyverno-reports-controller      1/1     1            1           33s
+
+NAME                                                 READY   STATUS    RESTARTS   AGE
+pod/kyverno-admission-controller-b8b9bd6db-rrjcb     1/1     Running   0          33s
+pod/kyverno-background-controller-5fcb8494dd-p725z   1/1     Running   0          33s
+pod/kyverno-cleanup-controller-69569f8c45-dtbvl      1/1     Running   0          33s
+pod/kyverno-reports-controller-744957d67b-6hfhm      1/1     Running   0          33s
+
+NAME                                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kyverno-background-controller-metrics   ClusterIP   10.96.245.86    <none>        8000/TCP   33s
+service/kyverno-cleanup-controller              ClusterIP   10.96.190.97    <none>        443/TCP    33s
+service/kyverno-cleanup-controller-metrics      ClusterIP   10.96.187.221   <none>        8000/TCP   33s
+service/kyverno-reports-controller-metrics      ClusterIP   10.96.165.201   <none>        8000/TCP   33s
+service/kyverno-svc                             ClusterIP   10.96.61.162    <none>        443/TCP    33s
+service/kyverno-svc-metrics                     ClusterIP   10.96.177.7     <none>        8000/TCP   33s
+
+NAME                                              ENDPOINTS             AGE
+endpoints/kyverno-background-controller-metrics   192.168.138.10:8000   33s
+endpoints/kyverno-cleanup-controller              192.168.138.11:9443   33s
+endpoints/kyverno-cleanup-controller-metrics      192.168.138.11:8000   33s
+endpoints/kyverno-reports-controller-metrics      192.168.138.9:8000    33s
+endpoints/kyverno-svc                             192.168.138.12:9443   33s
+endpoints/kyverno-svc-metrics                     192.168.138.12:8000   33s

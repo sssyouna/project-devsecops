@@ -1,0 +1,53 @@
+{
+  "validation": "final-integrated-workflow",
+  "status": "failed-during-kyverno-installation",
+  "architecture": [
+    "Kubernetes native security",
+    "Calico",
+    "Kyverno"
+  ],
+  "preflight": {
+    "kyverno_manifest_sha256": "4f785937dc7fe49a0731108b15def1538923c73d9236255bc69d94d498037969",
+    "native_and_calico_images_available": true,
+    "available_memory_before_mib": 4308,
+    "available_memory_after_failure_mib": 3743,
+    "resource_stop_threshold_mib": 2000,
+    "resource_threshold_reached": false
+  },
+  "results": {
+    "cluster_created": true,
+    "calico_ready": true,
+    "native_application_deployed": true,
+    "frontend_ready": true,
+    "backend_ready": true,
+    "postgres_ready": true,
+    "kyverno_manifest_applied": true,
+    "kyverno_controllers_ready": false,
+    "kyverno_policies_applied": false,
+    "functional_tests": "not-run",
+    "kyverno_admission_tests": "not-run",
+    "native_security_regression": "not-run"
+  },
+  "failure": {
+    "phase": "kyverno-controller-readiness",
+    "observed": "Kyverno images were pulled from reg.kyverno.io and the four controller deployments did not become Available within 300 seconds.",
+    "resource_exhaustion_demonstrated": false,
+    "evidence": [
+      "run.log",
+      "kyverno-pods.txt",
+      "events.txt",
+      "kyverno-logs.txt"
+    ]
+  },
+  "cleanup": {
+    "automatic_trap_used": true,
+    "cluster_deleted": true,
+    "remaining_kind_clusters": [],
+    "remaining_project5_lab_containers": []
+  },
+  "limitations": [
+    "No Kyverno policy enforcement result was produced by this run.",
+    "No post-Kyverno functional or native security regression result was produced by this run.",
+    "Earlier validated Kyverno admission evidence remains authoritative under ../kyverno/."
+  ]
+}

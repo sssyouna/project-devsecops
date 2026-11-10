@@ -1,0 +1,24 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from setuid.Dockerfile
+#1 transferring dockerfile: 502B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/project5-backend:native
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [1/2] FROM docker.io/library/project5-backend:native
+#4 DONE 0.0s
+
+#5 [2/2] RUN mkdir /opt/phase3-control &&     cp /usr/local/bin/python3.13 /opt/phase3-control/helper &&     chmod 4755 /opt/phase3-control/helper &&     printf SYNTHETIC-ROOT-ONLY > /opt/phase3-control/canary &&     chmod 0600 /opt/phase3-control/canary
+#5 CACHED
+
+#6 exporting to image
+#6 exporting layers done
+#6 writing image sha256:3d1af89af838338552f49e9ca8dd4642f0dee6beab8d412acbf7dc4f7cc0a84a 0.0s done
+#6 naming to docker.io/library/project5-setuid-control:native 0.0s done
+#6 DONE 0.1s

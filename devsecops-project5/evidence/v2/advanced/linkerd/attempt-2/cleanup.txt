@@ -1,0 +1,7 @@
+cleanup_started_utc=2026-11-10T09:37:38Z
+Deleting cluster "project5-linkerd" ...
+Deleted nodes: ["project5-linkerd-control-plane"]
+remaining_kind_clusters:
+No kind clusters found.
+remaining_project5_linkerd_containers:
+cleanup_exit_status=1

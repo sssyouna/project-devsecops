@@ -1,0 +1,506 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:53:23Z",
+                "generation": 2,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "1a33a688-5d21-41d1-abf8-54405ff026ce",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "kind": "ReplicaSet",
+                        "name": "frontend-7dc68cf4cd",
+                        "uid": "1a33a688-5d21-41d1-abf8-54405ff026ce"
+                    }
+                ],
+                "resourceVersion": "1853",
+                "uid": "aaa21301-c954-4afc-8f13-aa59c7c4e505"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311628
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311628
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "frontend-7dc68cf4cd",
+                "namespace": "project5",
+                "uid": "1a33a688-5d21-41d1-abf8-54405ff026ce"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        },
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:54:47Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "1d7c9a38-75ec-4cc4-883f-fa2d38237141",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "kind": "ReplicaSet",
+                        "name": "backend-7dcbd5f5d",
+                        "uid": "1d7c9a38-75ec-4cc4-883f-fa2d38237141"
+                    }
+                ],
+                "resourceVersion": "2012",
+                "uid": "132902b6-d5d9-4c37-869d-49e8b744094f"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311676
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311676
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "backend-7dcbd5f5d",
+                "namespace": "project5",
+                "uid": "1d7c9a38-75ec-4cc4-883f-fa2d38237141"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        },
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:53:22Z",
+                "generation": 2,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "31cf633d-90b7-4b91-8f60-ff359d21e3e6",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "kind": "Deployment",
+                        "name": "frontend",
+                        "uid": "31cf633d-90b7-4b91-8f60-ff359d21e3e6"
+                    }
+                ],
+                "resourceVersion": "1813",
+                "uid": "8a34e90f-50b2-4de8-9634-f5760c4fe422"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311621
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311621
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "frontend",
+                "namespace": "project5",
+                "uid": "31cf633d-90b7-4b91-8f60-ff359d21e3e6"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        },
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:53:22Z",
+                "generation": 4,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "4cdd46ca-e308-45fb-99df-41c11d1aeb59",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "kind": "Deployment",
+                        "name": "backend",
+                        "uid": "4cdd46ca-e308-45fb-99df-41c11d1aeb59"
+                    }
+                ],
+                "resourceVersion": "2006",
+                "uid": "3770b88a-efed-486d-ae1a-36ed49f2843a"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311675
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311675
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "apps/v1",
+                "kind": "Deployment",
+                "name": "backend",
+                "namespace": "project5",
+                "uid": "4cdd46ca-e308-45fb-99df-41c11d1aeb59"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        },
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:54:30Z",
+                "generation": 2,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "7177a6ef-83e5-4f6d-91a4-7fd4991a80dc",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "v1",
+                        "kind": "Pod",
+                        "name": "backend-7dcbd5f5d-7x9pl",
+                        "uid": "7177a6ef-83e5-4f6d-91a4-7fd4991a80dc"
+                    }
+                ],
+                "resourceVersion": "2024",
+                "uid": "746bacdb-b2f4-4914-86d9-05cfa6d7a7ef"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311679
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311679
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "backend-7dcbd5f5d-7x9pl",
+                "namespace": "project5",
+                "uid": "7177a6ef-83e5-4f6d-91a4-7fd4991a80dc"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        },
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:53:21Z",
+                "generation": 2,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "840669a0-657f-4b1d-a820-fca7dce05ba7",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "v1",
+                        "kind": "Pod",
+                        "name": "frontend-7dc68cf4cd-wct96",
+                        "uid": "840669a0-657f-4b1d-a820-fca7dce05ba7"
+                    }
+                ],
+                "resourceVersion": "1861",
+                "uid": "38282a4c-d06c-46ee-b0ef-04e9d632d93a"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311632
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311632
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "v1",
+                "kind": "Pod",
+                "name": "frontend-7dc68cf4cd-wct96",
+                "namespace": "project5",
+                "uid": "840669a0-657f-4b1d-a820-fca7dce05ba7"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        },
+        {
+            "apiVersion": "wgpolicyk8s.io/v1alpha2",
+            "kind": "PolicyReport",
+            "metadata": {
+                "creationTimestamp": "2026-11-10T11:53:23Z",
+                "generation": 2,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "kyverno"
+                },
+                "name": "8f7f8150-b1e9-4183-bf87-dd66e19eb181",
+                "namespace": "project5",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "apps/v1",
+                        "kind": "ReplicaSet",
+                        "name": "backend-698d86d79c",
+                        "uid": "8f7f8150-b1e9-4183-bf87-dd66e19eb181"
+                    }
+                ],
+                "resourceVersion": "1843",
+                "uid": "2b384872-0098-4950-8347-db2de41d001c"
+            },
+            "results": [
+                {
+                    "category": "Supply Chain",
+                    "message": "rule passed",
+                    "policy": "project5-approved-images",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-approved-container-images",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311626
+                    }
+                },
+                {
+                    "category": "Reliability",
+                    "message": "rule passed",
+                    "policy": "project5-resource-requirements",
+                    "properties": {
+                        "process": "background scan"
+                    },
+                    "result": "pass",
+                    "rule": "autogen-require-container-resources",
+                    "scored": true,
+                    "source": "kyverno",
+                    "timestamp": {
+                        "nanos": 0,
+                        "seconds": 1794311626
+                    }
+                }
+            ],
+            "scope": {
+                "apiVersion": "apps/v1",
+                "kind": "ReplicaSet",
+                "name": "backend-698d86d79c",
+                "namespace": "project5",
+                "uid": "8f7f8150-b1e9-4183-bf87-dd66e19eb181"
+            },
+            "summary": {
+                "error": 0,
+                "fail": 0,
+                "pass": 2,
+                "skip": 0,
+                "warn": 0
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

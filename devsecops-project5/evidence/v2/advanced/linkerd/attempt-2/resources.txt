@@ -1,0 +1,9 @@
+[before_cluster] 2026-11-10T09:31:39Z
+               total        used        free      shared  buff/cache   available
+Mem:            7941        3070        3493          94        1734        4870
+Swap:           4092         661        3431
+[native_ready] 2026-11-10T09:37:36Z
+               total        used        free      shared  buff/cache   available
+Mem:            7941        4134         191         117        4025        3807
+Swap:           4092         650        3442
+project5-linkerd-control-plane 278.79% 1.541GiB / 7.756GiB 19.86%

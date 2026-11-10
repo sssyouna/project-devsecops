@@ -1,0 +1,4 @@
+[before_cluster] 2026-11-10T09:38:14Z
+               total        used        free      shared  buff/cache   available
+Mem:            7941        3215        2746          91        2338        4725
+Swap:           4092         648        3444

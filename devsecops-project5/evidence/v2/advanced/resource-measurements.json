@@ -1,0 +1,26 @@
+{
+  "host": {
+    "cpu_count": 6,
+    "memory_total_mib": 5945,
+    "memory_available_mib_at_final_check": 2684,
+    "swap_total_mib": 4092,
+    "kernel": "7.0.12+kali-amd64"
+  },
+  "measurements": [
+    {
+      "subject": "final host check after project5-lab cleanup",
+      "memory_available_mib": 2684,
+      "note": "No project5-lab containers remained; this is not a Kyverno/Falco per-process measurement."
+    }
+  ],
+  "kyverno_overhead": {
+    "controller_metrics_captured": false,
+    "quantified_cpu_or_memory_delta": false,
+    "limitation": "No valid before/after controller resource sample was retained."
+  },
+  "falco_overhead": {
+    "controller_metrics_captured": false,
+    "quantified_cpu_or_memory_delta": false,
+    "limitation": "Falco was not installed or started."
+  }
+}

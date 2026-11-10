@@ -1,0 +1,18 @@
+{
+  "status": "blocked",
+  "functional": "passed",
+  "native_security_scenarios": "8-of-8-passed",
+  "native_security_aggregate": "failed",
+  "native_security_aggregate_reason": "runtime_hardening_changed was false because the before and after snapshots were identical",
+  "kyverno_admission": {
+    "compliant": "passed",
+    "unapproved_image": "passed",
+    "missing_resources": "passed",
+    "digest_audit": "accepted-for-audit"
+  },
+  "cleanup": {
+    "cluster_deleted": true,
+    "remaining_kind_clusters": [],
+    "remaining_project5_lab_containers": []
+  }
+}

@@ -1,0 +1,1 @@
+pod/kyverno-compliant serverside-applied

@@ -1,0 +1,5 @@
+NAME                                             READY   STATUS              RESTARTS   AGE    IP              NODE                         NOMINATED NODE   READINESS GATES
+kyverno-admission-controller-b8b9bd6db-bt56n     0/1     PodInitializing     0          5m3s   192.168.138.9   project5-lab-control-plane   <none>           <none>
+kyverno-background-controller-5fcb8494dd-zm98m   0/1     ContainerCreating   0          5m3s   <none>          project5-lab-control-plane   <none>           <none>
+kyverno-cleanup-controller-69569f8c45-w75jl      0/1     ContainerCreating   0          5m3s   <none>          project5-lab-control-plane   <none>           <none>
+kyverno-reports-controller-744957d67b-bd2mt      0/1     ContainerCreating   0          5m3s   <none>          project5-lab-control-plane   <none>           <none>

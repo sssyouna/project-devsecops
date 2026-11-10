@@ -1,0 +1,11 @@
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/postgres   1/1     1            1           2m48s
+
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/postgres-549cb5f7b-svm86   1/1     Running   0          2m48s
+
+NAME                                  STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data   Bound    pvc-e8d7c00d-fe5d-40e2-a438-b3f05898a708   512Mi      RWO            standard       <unset>                 2m48s
+
+NAME               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/postgres   ClusterIP   10.96.138.57   <none>        5432/TCP   2m48s

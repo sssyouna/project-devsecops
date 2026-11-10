@@ -1,0 +1,893 @@
+{
+  "after": {
+    "application_network_policies": [
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"application-dns\",\"namespace\":\"project5\"},\"spec\":{\"egress\":[{\"ports\":[{\"port\":53,\"protocol\":\"UDP\"},{\"port\":53,\"protocol\":\"TCP\"}],\"to\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"kube-system\"}},\"podSelector\":{\"matchLabels\":{\"k8s-app\":\"kube-dns\"}}}]}],\"podSelector\":{\"matchExpressions\":[{\"key\":\"app\",\"operator\":\"In\",\"values\":[\"frontend\",\"backend\"]}]},\"policyTypes\":[\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "application-dns",
+          "namespace": "project5",
+          "resourceVersion": "977",
+          "uid": "2bdb7f85-d569-4b2f-999f-ca498aaa66ff"
+        },
+        "spec": {
+          "egress": [
+            {
+              "ports": [
+                {
+                  "port": 53,
+                  "protocol": "UDP"
+                },
+                {
+                  "port": 53,
+                  "protocol": "TCP"
+                }
+              ],
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "kube-system"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "k8s-app": "kube-dns"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchExpressions": [
+              {
+                "key": "app",
+                "operator": "In",
+                "values": [
+                  "frontend",
+                  "backend"
+                ]
+              }
+            ]
+          },
+          "policyTypes": [
+            "Egress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"backend-from-frontend\",\"namespace\":\"project5\"},\"spec\":{\"ingress\":[{\"from\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"frontend\"}}}],\"ports\":[{\"port\":8000,\"protocol\":\"TCP\"}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}},\"policyTypes\":[\"Ingress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "backend-from-frontend",
+          "namespace": "project5",
+          "resourceVersion": "978",
+          "uid": "f366016f-77d2-4778-8cd8-866335e0cadf"
+        },
+        "spec": {
+          "ingress": [
+            {
+              "from": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "frontend"
+                    }
+                  }
+                }
+              ],
+              "ports": [
+                {
+                  "port": 8000,
+                  "protocol": "TCP"
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "backend"
+            }
+          },
+          "policyTypes": [
+            "Ingress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"backend-to-database\",\"namespace\":\"project5\"},\"spec\":{\"egress\":[{\"ports\":[{\"port\":5432,\"protocol\":\"TCP\"}],\"to\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5-data\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"postgres\"}}}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}},\"policyTypes\":[\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "backend-to-database",
+          "namespace": "project5",
+          "resourceVersion": "979",
+          "uid": "cbc446b7-947b-411e-b93d-fe4038bd9938"
+        },
+        "spec": {
+          "egress": [
+            {
+              "ports": [
+                {
+                  "port": 5432,
+                  "protocol": "TCP"
+                }
+              ],
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5-data"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "postgres"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "backend"
+            }
+          },
+          "policyTypes": [
+            "Egress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"default-deny\",\"namespace\":\"project5\"},\"spec\":{\"podSelector\":{},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "default-deny",
+          "namespace": "project5",
+          "resourceVersion": "980",
+          "uid": "12099eea-1185-4584-b962-df6927c1cc0e"
+        },
+        "spec": {
+          "podSelector": {},
+          "policyTypes": [
+            "Ingress",
+            "Egress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"frontend-to-backend\",\"namespace\":\"project5\"},\"spec\":{\"egress\":[{\"ports\":[{\"port\":8000,\"protocol\":\"TCP\"}],\"to\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}}}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"frontend\"}},\"policyTypes\":[\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "frontend-to-backend",
+          "namespace": "project5",
+          "resourceVersion": "981",
+          "uid": "55457e64-c129-4a70-b8cc-b555d778d852"
+        },
+        "spec": {
+          "egress": [
+            {
+              "ports": [
+                {
+                  "port": 8000,
+                  "protocol": "TCP"
+                }
+              ],
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "backend"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "frontend"
+            }
+          },
+          "policyTypes": [
+            "Egress"
+          ]
+        }
+      }
+    ],
+    "data_namespace_labels": {
+      "kubernetes.io/metadata.name": "project5-data",
+      "pod-security.kubernetes.io/audit": "restricted",
+      "pod-security.kubernetes.io/enforce": "restricted",
+      "pod-security.kubernetes.io/enforce-version": "v1.35",
+      "pod-security.kubernetes.io/warn": "restricted"
+    },
+    "data_network_policies": [
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"database-from-backend\",\"namespace\":\"project5-data\"},\"spec\":{\"ingress\":[{\"from\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}}}],\"ports\":[{\"port\":5432,\"protocol\":\"TCP\"}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"postgres\"}},\"policyTypes\":[\"Ingress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "database-from-backend",
+          "namespace": "project5-data",
+          "resourceVersion": "960",
+          "uid": "36efac41-41e2-4e7a-9cdd-607a5664fef5"
+        },
+        "spec": {
+          "ingress": [
+            {
+              "from": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "backend"
+                    }
+                  }
+                }
+              ],
+              "ports": [
+                {
+                  "port": 5432,
+                  "protocol": "TCP"
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "postgres"
+            }
+          },
+          "policyTypes": [
+            "Ingress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"default-deny\",\"namespace\":\"project5-data\"},\"spec\":{\"podSelector\":{},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "default-deny",
+          "namespace": "project5-data",
+          "resourceVersion": "973",
+          "uid": "385b6c2f-c4b6-48f6-a2c2-1d7332e285fd"
+        },
+        "spec": {
+          "podSelector": {},
+          "policyTypes": [
+            "Ingress",
+            "Egress"
+          ]
+        }
+      }
+    ],
+    "deployment/backend": {
+      "spec_sha256": "629a5e1039209685435e5731cd9b6d17bb38451a1e00c1c5ce8a8cf6ade209b5",
+      "uid": "cf7e6763-48bc-4ed2-b7c1-92143a3a0ced"
+    },
+    "deployment/frontend": {
+      "spec_sha256": "9bb62cb1982785d95226e60e2941c785bf808018cb80bd3a0ea4339155aad47e",
+      "uid": "1a30c9f8-5ff4-42f3-b6d9-9a72fb59e8b7"
+    },
+    "deployment/postgres": {
+      "spec_sha256": "24306a3cb91c88cf7fc1138172fe08055e99fc33a45a88cc599c8506a9836bef",
+      "uid": "2ad2f272-55c7-43b3-b8cb-1adea7e0acbe"
+    },
+    "identities": {
+      "project5-data/postgres": {
+        "automount": false,
+        "uid": "63b9dadf-77d1-4a5c-ab78-4b9458b8b988"
+      },
+      "project5/backend": {
+        "automount": false,
+        "uid": "5c3997be-7797-4282-86bf-fcd34d44d310"
+      },
+      "project5/frontend": {
+        "automount": false,
+        "uid": "2f69fb98-85db-4fbb-b8a6-c081c78e8044"
+      }
+    },
+    "namespace/project5": {
+      "labels": {
+        "kubernetes.io/metadata.name": "project5",
+        "pod-security.kubernetes.io/audit": "restricted",
+        "pod-security.kubernetes.io/enforce": "restricted",
+        "pod-security.kubernetes.io/enforce-version": "v1.35",
+        "pod-security.kubernetes.io/warn": "restricted"
+      },
+      "object_sha256": "f228d4a413be015bc037caef65b62f40441f56c697312950ff2aa358b26bcc73",
+      "uid": "1c9db05b-ee82-4400-bab3-0e3c9f55c2c4"
+    },
+    "pods": [
+      {
+        "image_ids": [
+          "sha256:3b32fd720c6cc7c226a2f95c74f2c6553d557459bd17d0f1265b201c0f391872"
+        ],
+        "name": "backend-6bffb7fc44-fn7st",
+        "uid": "2061784a-b83f-4727-8928-928c17a66e9d"
+      },
+      {
+        "image_ids": [
+          "sha256:7637919394310ccf1f85c7139e22f96550c3908ad93a383a80483f1ca034e500"
+        ],
+        "name": "frontend-7dc68cf4cd-hcl8p",
+        "uid": "4bfd5ee2-801e-496a-b36a-e3f4936e91e7"
+      },
+      {
+        "image_ids": [
+          "sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8"
+        ],
+        "name": "postgres-5cfd889699-44kmw",
+        "uid": "f874f100-b355-4094-84b3-70ab467ba46b"
+      }
+    ],
+    "pvc": {
+      "spec_sha256": "6b56549e6f98bf2e6a22760479d64ecd2d4bdf0306e7c88d6e7180ef74cc7733",
+      "uid": "739701f7-1e60-447f-8a5c-ff812ba2be08",
+      "volume": "pvc-739701f7-1e60-447f-8a5c-ff812ba2be08"
+    },
+    "role/excessive-workload-access": {
+      "absent": true
+    },
+    "rolebinding/shared-workload-excessive-access": {
+      "absent": true
+    },
+    "service/backend": "9a7670df10dea3eb5e9c11d9cc612207ded8b367ff3c77c0681cfb531a985b6f",
+    "service/frontend": "0442f605c2801731c8d056a52f1a4cdea1062e75081161768a2359311826ae47",
+    "service/postgres": "349107db19c679ec58e53fd5f99e9f0916efbed550bf193ff49d511eb2623723",
+    "serviceaccount/backend": {
+      "labels": {},
+      "object_sha256": "46b08a22aae3a048f7ef08d61b4ca6eade164d0fd28eb083057a9d53d0e89283",
+      "uid": "5c3997be-7797-4282-86bf-fcd34d44d310"
+    }
+  },
+  "before": {
+    "application_network_policies": [
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"application-dns\",\"namespace\":\"project5\"},\"spec\":{\"egress\":[{\"ports\":[{\"port\":53,\"protocol\":\"UDP\"},{\"port\":53,\"protocol\":\"TCP\"}],\"to\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"kube-system\"}},\"podSelector\":{\"matchLabels\":{\"k8s-app\":\"kube-dns\"}}}]}],\"podSelector\":{\"matchExpressions\":[{\"key\":\"app\",\"operator\":\"In\",\"values\":[\"frontend\",\"backend\"]}]},\"policyTypes\":[\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "application-dns",
+          "namespace": "project5",
+          "resourceVersion": "977",
+          "uid": "2bdb7f85-d569-4b2f-999f-ca498aaa66ff"
+        },
+        "spec": {
+          "egress": [
+            {
+              "ports": [
+                {
+                  "port": 53,
+                  "protocol": "UDP"
+                },
+                {
+                  "port": 53,
+                  "protocol": "TCP"
+                }
+              ],
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "kube-system"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "k8s-app": "kube-dns"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchExpressions": [
+              {
+                "key": "app",
+                "operator": "In",
+                "values": [
+                  "frontend",
+                  "backend"
+                ]
+              }
+            ]
+          },
+          "policyTypes": [
+            "Egress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"backend-from-frontend\",\"namespace\":\"project5\"},\"spec\":{\"ingress\":[{\"from\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"frontend\"}}}],\"ports\":[{\"port\":8000,\"protocol\":\"TCP\"}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}},\"policyTypes\":[\"Ingress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "backend-from-frontend",
+          "namespace": "project5",
+          "resourceVersion": "978",
+          "uid": "f366016f-77d2-4778-8cd8-866335e0cadf"
+        },
+        "spec": {
+          "ingress": [
+            {
+              "from": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "frontend"
+                    }
+                  }
+                }
+              ],
+              "ports": [
+                {
+                  "port": 8000,
+                  "protocol": "TCP"
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "backend"
+            }
+          },
+          "policyTypes": [
+            "Ingress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"backend-to-database\",\"namespace\":\"project5\"},\"spec\":{\"egress\":[{\"ports\":[{\"port\":5432,\"protocol\":\"TCP\"}],\"to\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5-data\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"postgres\"}}}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}},\"policyTypes\":[\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "backend-to-database",
+          "namespace": "project5",
+          "resourceVersion": "979",
+          "uid": "cbc446b7-947b-411e-b93d-fe4038bd9938"
+        },
+        "spec": {
+          "egress": [
+            {
+              "ports": [
+                {
+                  "port": 5432,
+                  "protocol": "TCP"
+                }
+              ],
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5-data"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "postgres"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "backend"
+            }
+          },
+          "policyTypes": [
+            "Egress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"default-deny\",\"namespace\":\"project5\"},\"spec\":{\"podSelector\":{},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "default-deny",
+          "namespace": "project5",
+          "resourceVersion": "980",
+          "uid": "12099eea-1185-4584-b962-df6927c1cc0e"
+        },
+        "spec": {
+          "podSelector": {},
+          "policyTypes": [
+            "Ingress",
+            "Egress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"frontend-to-backend\",\"namespace\":\"project5\"},\"spec\":{\"egress\":[{\"ports\":[{\"port\":8000,\"protocol\":\"TCP\"}],\"to\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}}}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"frontend\"}},\"policyTypes\":[\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "frontend-to-backend",
+          "namespace": "project5",
+          "resourceVersion": "981",
+          "uid": "55457e64-c129-4a70-b8cc-b555d778d852"
+        },
+        "spec": {
+          "egress": [
+            {
+              "ports": [
+                {
+                  "port": 8000,
+                  "protocol": "TCP"
+                }
+              ],
+              "to": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "backend"
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "frontend"
+            }
+          },
+          "policyTypes": [
+            "Egress"
+          ]
+        }
+      }
+    ],
+    "data_namespace_labels": {
+      "kubernetes.io/metadata.name": "project5-data",
+      "pod-security.kubernetes.io/audit": "restricted",
+      "pod-security.kubernetes.io/enforce": "restricted",
+      "pod-security.kubernetes.io/enforce-version": "v1.35",
+      "pod-security.kubernetes.io/warn": "restricted"
+    },
+    "data_network_policies": [
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"database-from-backend\",\"namespace\":\"project5-data\"},\"spec\":{\"ingress\":[{\"from\":[{\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"project5\"}},\"podSelector\":{\"matchLabels\":{\"app\":\"backend\"}}}],\"ports\":[{\"port\":5432,\"protocol\":\"TCP\"}]}],\"podSelector\":{\"matchLabels\":{\"app\":\"postgres\"}},\"policyTypes\":[\"Ingress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "database-from-backend",
+          "namespace": "project5-data",
+          "resourceVersion": "960",
+          "uid": "36efac41-41e2-4e7a-9cdd-607a5664fef5"
+        },
+        "spec": {
+          "ingress": [
+            {
+              "from": [
+                {
+                  "namespaceSelector": {
+                    "matchLabels": {
+                      "kubernetes.io/metadata.name": "project5"
+                    }
+                  },
+                  "podSelector": {
+                    "matchLabels": {
+                      "app": "backend"
+                    }
+                  }
+                }
+              ],
+              "ports": [
+                {
+                  "port": 5432,
+                  "protocol": "TCP"
+                }
+              ]
+            }
+          ],
+          "podSelector": {
+            "matchLabels": {
+              "app": "postgres"
+            }
+          },
+          "policyTypes": [
+            "Ingress"
+          ]
+        }
+      },
+      {
+        "apiVersion": "networking.k8s.io/v1",
+        "kind": "NetworkPolicy",
+        "metadata": {
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"name\":\"default-deny\",\"namespace\":\"project5-data\"},\"spec\":{\"podSelector\":{},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+          },
+          "creationTimestamp": "2026-11-10T11:29:16Z",
+          "generation": 1,
+          "name": "default-deny",
+          "namespace": "project5-data",
+          "resourceVersion": "973",
+          "uid": "385b6c2f-c4b6-48f6-a2c2-1d7332e285fd"
+        },
+        "spec": {
+          "podSelector": {},
+          "policyTypes": [
+            "Ingress",
+            "Egress"
+          ]
+        }
+      }
+    ],
+    "deployment/backend": {
+      "spec_sha256": "629a5e1039209685435e5731cd9b6d17bb38451a1e00c1c5ce8a8cf6ade209b5",
+      "uid": "cf7e6763-48bc-4ed2-b7c1-92143a3a0ced"
+    },
+    "deployment/frontend": {
+      "spec_sha256": "9bb62cb1982785d95226e60e2941c785bf808018cb80bd3a0ea4339155aad47e",
+      "uid": "1a30c9f8-5ff4-42f3-b6d9-9a72fb59e8b7"
+    },
+    "deployment/postgres": {
+      "spec_sha256": "24306a3cb91c88cf7fc1138172fe08055e99fc33a45a88cc599c8506a9836bef",
+      "uid": "2ad2f272-55c7-43b3-b8cb-1adea7e0acbe"
+    },
+    "identities": {
+      "project5-data/postgres": {
+        "automount": false,
+        "uid": "63b9dadf-77d1-4a5c-ab78-4b9458b8b988"
+      },
+      "project5/backend": {
+        "automount": false,
+        "uid": "5c3997be-7797-4282-86bf-fcd34d44d310"
+      },
+      "project5/frontend": {
+        "automount": false,
+        "uid": "2f69fb98-85db-4fbb-b8a6-c081c78e8044"
+      }
+    },
+    "namespace/project5": {
+      "labels": {
+        "kubernetes.io/metadata.name": "project5",
+        "pod-security.kubernetes.io/audit": "restricted",
+        "pod-security.kubernetes.io/enforce": "restricted",
+        "pod-security.kubernetes.io/enforce-version": "v1.35",
+        "pod-security.kubernetes.io/warn": "restricted"
+      },
+      "object_sha256": "f228d4a413be015bc037caef65b62f40441f56c697312950ff2aa358b26bcc73",
+      "uid": "1c9db05b-ee82-4400-bab3-0e3c9f55c2c4"
+    },
+    "pods": [
+      {
+        "image_ids": [
+          "sha256:3b32fd720c6cc7c226a2f95c74f2c6553d557459bd17d0f1265b201c0f391872"
+        ],
+        "name": "backend-6bffb7fc44-fn7st",
+        "uid": "2061784a-b83f-4727-8928-928c17a66e9d"
+      },
+      {
+        "image_ids": [
+          "sha256:7637919394310ccf1f85c7139e22f96550c3908ad93a383a80483f1ca034e500"
+        ],
+        "name": "frontend-7dc68cf4cd-hcl8p",
+        "uid": "4bfd5ee2-801e-496a-b36a-e3f4936e91e7"
+      },
+      {
+        "image_ids": [
+          "sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8"
+        ],
+        "name": "postgres-5cfd889699-44kmw",
+        "uid": "f874f100-b355-4094-84b3-70ab467ba46b"
+      }
+    ],
+    "pvc": {
+      "spec_sha256": "6b56549e6f98bf2e6a22760479d64ecd2d4bdf0306e7c88d6e7180ef74cc7733",
+      "uid": "739701f7-1e60-447f-8a5c-ff812ba2be08",
+      "volume": "pvc-739701f7-1e60-447f-8a5c-ff812ba2be08"
+    },
+    "role/excessive-workload-access": {
+      "absent": true
+    },
+    "rolebinding/shared-workload-excessive-access": {
+      "absent": true
+    },
+    "service/backend": "9a7670df10dea3eb5e9c11d9cc612207ded8b367ff3c77c0681cfb531a985b6f",
+    "service/frontend": "0442f605c2801731c8d056a52f1a4cdea1062e75081161768a2359311826ae47",
+    "service/postgres": "349107db19c679ec58e53fd5f99e9f0916efbed550bf193ff49d511eb2623723",
+    "serviceaccount/backend": {
+      "labels": {},
+      "object_sha256": "46b08a22aae3a048f7ef08d61b4ca6eade164d0fd28eb083057a9d53d0e89283",
+      "uid": "5c3997be-7797-4282-86bf-fcd34d44d310"
+    }
+  },
+  "database_after": {
+    "admin_tcp": {
+      "allowed": false,
+      "hba_reject": true,
+      "sqlstate": null
+    },
+    "crud_privileges": {
+      "DELETE": true,
+      "INSERT": true,
+      "SELECT": true,
+      "TRUNCATE": false,
+      "UPDATE": true
+    },
+    "denied_actions": {
+      "projected_token_read": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "schema_create": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "sequence_read": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "server_file_read": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "temporary_table_create": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      }
+    },
+    "role": {
+      "bypass_rls": false,
+      "create_database": false,
+      "create_role": false,
+      "name": "inventory_app",
+      "replication": false,
+      "superuser": false
+    },
+    "row_count": 3,
+    "rows_sha256": "16ab703b9d23830c0070316d125bd8400edf2c078de4bba01634f558c5c2c909"
+  },
+  "database_before": {
+    "admin_tcp": {
+      "allowed": false,
+      "hba_reject": true,
+      "sqlstate": null
+    },
+    "crud_privileges": {
+      "DELETE": true,
+      "INSERT": true,
+      "SELECT": true,
+      "TRUNCATE": false,
+      "UPDATE": true
+    },
+    "denied_actions": {
+      "projected_token_read": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "schema_create": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "sequence_read": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "server_file_read": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      },
+      "temporary_table_create": {
+        "allowed": false,
+        "error_class": "InsufficientPrivilege",
+        "sqlstate": "42501"
+      }
+    },
+    "role": {
+      "bypass_rls": false,
+      "create_database": false,
+      "create_role": false,
+      "name": "inventory_app",
+      "replication": false,
+      "superuser": false
+    },
+    "row_count": 3,
+    "rows_sha256": "16ab703b9d23830c0070316d125bd8400edf2c078de4bba01634f558c5c2c909"
+  },
+  "database_rows_unchanged": true,
+  "export_unchanged": true,
+  "runtime_baseline_unchanged": true,
+  "runtime_hardening_changed": false,
+  "source_unchanged": true
+}

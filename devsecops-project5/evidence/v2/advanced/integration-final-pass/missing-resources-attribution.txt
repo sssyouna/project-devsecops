@@ -1,0 +1,2 @@
+project5-resource-requirements:
+  require-container-resources: 'validation failure: validation error: Every Project 5 container must declare CPU and memory requests and limits. rule require-container-resources failed at path /resources/limits/'

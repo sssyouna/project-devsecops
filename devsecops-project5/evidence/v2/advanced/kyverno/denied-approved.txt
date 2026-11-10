@@ -1,0 +1,6 @@
+Error from server: error when creating "/tmp/kyverno-denied-approved.yaml": admission webhook "validate.kyverno.svc-fail" denied the request:
+
+resource Pod/project5/kyverno-denied-approved was blocked due to the following policies
+
+project5-approved-images:
+  require-approved-container-images: 'validation failure: Project 5 Pods must use an approved project5 image repository.'

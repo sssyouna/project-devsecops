@@ -1,0 +1,6 @@
+4f785937dc7fe49a0731108b15def1538923c73d9236255bc69d94d498037969  .lab/cache/kyverno-v1.19.2-install.yaml
+available reg.kyverno.io/kyverno/kyvernopre:v1.19.2
+available reg.kyverno.io/kyverno/kyverno:v1.19.2
+available reg.kyverno.io/kyverno/background-controller:v1.19.2
+available reg.kyverno.io/kyverno/cleanup-controller:v1.19.2
+available reg.kyverno.io/kyverno/reports-controller:v1.19.2

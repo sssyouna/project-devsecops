@@ -1,0 +1,20 @@
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                                                 READY   STATUS    RESTARTS       AGE     IP               NODE                         NOMINATED NODE   READINESS GATES
+pod/kyverno-admission-controller-b8b9bd6db-688mk     1/1     Running   0              8m28s   192.168.138.10   project5-lab-control-plane   <none>           <none>
+pod/kyverno-background-controller-5fcb8494dd-hxvvr   1/1     Running   2 (112s ago)   8m28s   192.168.138.9    project5-lab-control-plane   <none>           <none>
+pod/kyverno-cleanup-controller-69569f8c45-7lh8v      1/1     Running   0              8m28s   192.168.138.11   project5-lab-control-plane   <none>           <none>
+pod/kyverno-reports-controller-744957d67b-dsxsp      1/1     Running   0              8m28s   192.168.138.12   project5-lab-control-plane   <none>           <none>
+
+NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES                                                 SELECTOR
+deployment.apps/kyverno-admission-controller    1/1     1            1           8m28s   kyverno      reg.kyverno.io/kyverno/kyverno:v1.19.2                 app.kubernetes.io/component=admission-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+deployment.apps/kyverno-background-controller   1/1     1            1           8m28s   controller   reg.kyverno.io/kyverno/background-controller:v1.19.2   app.kubernetes.io/component=background-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+deployment.apps/kyverno-cleanup-controller      1/1     1            1           8m28s   controller   reg.kyverno.io/kyverno/cleanup-controller:v1.19.2      app.kubernetes.io/component=cleanup-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+deployment.apps/kyverno-reports-controller      1/1     1            1           8m28s   controller   reg.kyverno.io/kyverno/reports-controller:v1.19.2      app.kubernetes.io/component=reports-controller,app.kubernetes.io/instance=kyverno,app.kubernetes.io/part-of=kyverno
+
+NAME                                              ENDPOINTS             AGE
+endpoints/kyverno-background-controller-metrics   192.168.138.9:8000    8m28s
+endpoints/kyverno-cleanup-controller              192.168.138.11:9443   8m28s
+endpoints/kyverno-cleanup-controller-metrics      192.168.138.11:8000   8m28s
+endpoints/kyverno-reports-controller-metrics      192.168.138.12:8000   8m28s
+endpoints/kyverno-svc                             192.168.138.10:9443   8m28s
+endpoints/kyverno-svc-metrics                     192.168.138.10:8000   8m28s

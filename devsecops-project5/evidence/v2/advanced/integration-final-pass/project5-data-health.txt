@@ -1,0 +1,9 @@
+NAME                            READY   STATUS    RESTARTS   AGE   IP               NODE                         NOMINATED NODE   READINESS GATES
+pod/postgres-5cfd889699-44kmw   1/1     Running   0          12m   192.168.138.13   project5-lab-control-plane   <none>           <none>
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                   SELECTOR
+deployment.apps/postgres   1/1     1            1           15m   postgres     project5-postgres:17.6   app=postgres
+
+NAME                                                    POD-SELECTOR   AGE
+networkpolicy.networking.k8s.io/database-from-backend   app=postgres   15m
+networkpolicy.networking.k8s.io/default-deny            <none>         15m

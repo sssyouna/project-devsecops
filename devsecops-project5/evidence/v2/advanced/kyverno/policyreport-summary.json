@@ -1,0 +1,11 @@
+{
+  "source": "Kyverno PolicyReport query during the live project5-lab run",
+  "sanitized": true,
+  "background_scan_observation": {
+    "native_project5_workloads": "pass",
+    "approved_image_policy": "pass",
+    "resource_requirements_policy": "pass",
+    "digest_audit_case": "not-retained-before-cleanup"
+  },
+  "note": "The digest test was accepted in Audit mode, but the corresponding failure result was not retained before cluster cleanup. No audit finding is claimed."
+}

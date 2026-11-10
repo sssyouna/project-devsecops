@@ -1,0 +1,7 @@
+cleanup_started_utc=2026-11-10T09:17:08Z
+Deleting cluster "project5-cilium" ...
+Deleted nodes: ["project5-cilium-control-plane"]
+remaining_kind_clusters:
+No kind clusters found.
+remaining_project5_cilium_containers:
+cleanup_exit_status=1

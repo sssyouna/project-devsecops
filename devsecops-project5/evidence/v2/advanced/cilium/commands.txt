@@ -1,0 +1,3 @@
++ kind create cluster --name project5-cilium --image kindest/node@sha256:452d707d4862f52530247495d180205e029056831160e22870e37e3f6c1ac31f --config /home/ynx/Desktop/projet-cloud/devsecops-project5/k8s/kind.yaml --kubeconfig /tmp/project5-cilium-kubeconfig --retain --wait 0s
++ /home/ynx/Desktop/projet-cloud/devsecops-project5/.lab/bin/cilium install --kubeconfig /tmp/project5-cilium-kubeconfig --context kind-project5-cilium --version 1.18.0 --set hubble.enabled=false --set operator.replicas=1
++ /home/ynx/Desktop/projet-cloud/devsecops-project5/.lab/bin/cilium status --kubeconfig /tmp/project5-cilium-kubeconfig --context kind-project5-cilium --wait --wait-duration 5m

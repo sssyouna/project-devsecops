@@ -1,0 +1,588 @@
+apiVersion: v1
+items:
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:15:10Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 3a0cc758-b60f-4622-94c5-55b7469e1c40
+    namespace: project5-data
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: postgres-557b9db7f8
+      uid: 3a0cc758-b60f-4622-94c5-55b7469e1c40
+    resourceVersion: "1929"
+    uid: e85d12e4-8409-4825-9cc3-8ccfb78cc5c5
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312899
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312899
+  scope:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: postgres-557b9db7f8
+    namespace: project5-data
+    uid: 3a0cc758-b60f-4622-94c5-55b7469e1c40
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:06Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 502f9f87-a1fc-42dd-8060-9bd420b9a945
+    namespace: project5-data
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: postgres-549cb5f7b
+      uid: 502f9f87-a1fc-42dd-8060-9bd420b9a945
+    resourceVersion: "1818"
+    uid: 1a4d9f30-eccb-432f-8581-af3c6bfd58ec
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312868
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312868
+  scope:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: postgres-549cb5f7b
+    namespace: project5-data
+    uid: 502f9f87-a1fc-42dd-8060-9bd420b9a945
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:04Z"
+    generation: 3
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 96cddbe6-9065-44ac-b390-6dc0381c6ea0
+    namespace: project5-data
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: postgres
+      uid: 96cddbe6-9065-44ac-b390-6dc0381c6ea0
+    resourceVersion: "1939"
+    uid: 24a1537a-5a79-4eae-9ab2-8c68c01df881
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312899
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312899
+  scope:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: postgres
+    namespace: project5-data
+    uid: 96cddbe6-9065-44ac-b390-6dc0381c6ea0
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:51Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: c975ff03-0d66-4546-bb45-7adb12c56775
+    namespace: project5-data
+    ownerReferences:
+    - apiVersion: v1
+      kind: Pod
+      name: postgres-557b9db7f8-hl7gq
+      uid: c975ff03-0d66-4546-bb45-7adb12c56775
+    resourceVersion: "1948"
+    uid: afce57d7-8539-409a-89af-b9a4a627a51c
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312901
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312901
+  scope:
+    apiVersion: v1
+    kind: Pod
+    name: postgres-557b9db7f8-hl7gq
+    namespace: project5-data
+    uid: c975ff03-0d66-4546-bb45-7adb12c56775
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:05Z"
+    generation: 4
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 05ee1574-7d9b-4eb5-b08d-55fc07900aed
+    namespace: project5
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: backend
+      uid: 05ee1574-7d9b-4eb5-b08d-55fc07900aed
+    resourceVersion: "2063"
+    uid: f1687e8b-815b-4cbe-b8b0-4168f65cbdfc
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312938
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312938
+  scope:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend
+    namespace: project5
+    uid: 05ee1574-7d9b-4eb5-b08d-55fc07900aed
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:06Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 06d0bbda-6140-4a74-99e2-ab9467c246b7
+    namespace: project5
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: backend-698d86d79c
+      uid: 06d0bbda-6140-4a74-99e2-ab9467c246b7
+    resourceVersion: "1815"
+    uid: b92484ff-8221-4806-aaa2-f8a0c68d3291
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312869
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312869
+  scope:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: backend-698d86d79c
+    namespace: project5
+    uid: 06d0bbda-6140-4a74-99e2-ab9467c246b7
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:04Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 070923e9-d5a6-40f4-bb84-5a1ef1e18aff
+    namespace: project5
+    ownerReferences:
+    - apiVersion: v1
+      kind: Pod
+      name: frontend-7dc68cf4cd-b77z8
+      uid: 070923e9-d5a6-40f4-bb84-5a1ef1e18aff
+    resourceVersion: "1790"
+    uid: 48cfea6a-bba0-4e09-98f2-5c1612e2d11e
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312864
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312864
+  scope:
+    apiVersion: v1
+    kind: Pod
+    name: frontend-7dc68cf4cd-b77z8
+    namespace: project5
+    uid: 070923e9-d5a6-40f4-bb84-5a1ef1e18aff
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:15:49Z"
+    generation: 1
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 5497f910-d386-4300-9c66-316e6f515fa3
+    namespace: project5
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: backend-7f4f695757
+      uid: 5497f910-d386-4300-9c66-316e6f515fa3
+    resourceVersion: "2066"
+    uid: 56a62821-7652-4cd2-8f34-3ee39515227c
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312939
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312939
+  scope:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: backend-7f4f695757
+    namespace: project5
+    uid: 5497f910-d386-4300-9c66-316e6f515fa3
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:06Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 5bdd8001-0376-49d4-a295-8760f95b37ad
+    namespace: project5
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: frontend-7dc68cf4cd
+      uid: 5bdd8001-0376-49d4-a295-8760f95b37ad
+    resourceVersion: "1810"
+    uid: 9c0f7f34-ddb6-4a27-83cf-054ddd079ce5
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312867
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312867
+  scope:
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    name: frontend-7dc68cf4cd
+    namespace: project5
+    uid: 5bdd8001-0376-49d4-a295-8760f95b37ad
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:15:33Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: 8d9f2323-cf9d-4b9b-8c7e-514200aab0f0
+    namespace: project5
+    ownerReferences:
+    - apiVersion: v1
+      kind: Pod
+      name: backend-7f4f695757-w5kjt
+      uid: 8d9f2323-cf9d-4b9b-8c7e-514200aab0f0
+    resourceVersion: "2076"
+    uid: 71e8605f-b22d-44e3-b86e-a917ac2d1921
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312940
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312940
+  scope:
+    apiVersion: v1
+    kind: Pod
+    name: backend-7f4f695757-w5kjt
+    namespace: project5
+    uid: 8d9f2323-cf9d-4b9b-8c7e-514200aab0f0
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+- apiVersion: wgpolicyk8s.io/v1alpha2
+  kind: PolicyReport
+  metadata:
+    creationTimestamp: "2026-11-10T12:14:05Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/managed-by: kyverno
+    name: ed5ae3c5-e874-445a-939c-4f87c1500dc3
+    namespace: project5
+    ownerReferences:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: frontend
+      uid: ed5ae3c5-e874-445a-939c-4f87c1500dc3
+    resourceVersion: "1804"
+    uid: b661a37e-5ed3-4db0-8773-3fc45bcd97c0
+  results:
+  - category: Supply Chain
+    message: rule passed
+    policy: project5-approved-images
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-approved-container-images
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312867
+  - category: Reliability
+    message: rule passed
+    policy: project5-resource-requirements
+    properties:
+      process: background scan
+    result: pass
+    rule: autogen-require-container-resources
+    scored: true
+    source: kyverno
+    timestamp:
+      nanos: 0
+      seconds: 1794312867
+  scope:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+    namespace: project5
+    uid: ed5ae3c5-e874-445a-939c-4f87c1500dc3
+  summary:
+    error: 0
+    fail: 0
+    pass: 2
+    skip: 0
+    warn: 0
+kind: List
+metadata:
+  resourceVersion: ""

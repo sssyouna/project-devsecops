@@ -1,0 +1,11 @@
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    1/1     1            1           2m47s
+deployment.apps/frontend   1/1     1            1           2m47s
+
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/backend-698d86d79c-t2xfs    1/1     Running   0          2m46s
+pod/frontend-7dc68cf4cd-b77z8   1/1     Running   0          2m46s
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.96.92.63     <none>        8000/TCP   2m47s
+service/frontend   ClusterIP   10.96.128.114   <none>        8080/TCP   2m47s

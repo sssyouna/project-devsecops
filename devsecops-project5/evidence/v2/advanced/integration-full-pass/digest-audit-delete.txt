@@ -1,0 +1,1 @@
+pod "kyverno-digest-audit" deleted from project5 namespace

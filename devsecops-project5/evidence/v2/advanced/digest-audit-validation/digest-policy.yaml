@@ -1,0 +1,58 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    policies.kyverno.io/category: Supply Chain
+    policies.kyverno.io/description: Workloads explicitly marked with image-policy=digest
+      must use image references containing a sha256 digest. The opt-in label preserves
+      the offline lab's local tag-based images while allowing protected workloads
+      to require immutable references.
+    policies.kyverno.io/subject: Pod
+    policies.kyverno.io/title: Immutable images for protected Project 5 workloads
+  creationTimestamp: "2026-11-10T12:58:46Z"
+  generation: 1
+  name: project5-immutable-protected-images
+  resourceVersion: "1581"
+  uid: 513dda0c-941c-4066-aca3-b0198fafec5c
+spec:
+  admission: true
+  background: true
+  emitWarning: false
+  rules:
+  - match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+          selector:
+            matchLabels:
+              security.project5.io/image-policy: digest
+    name: require-digests-on-protected-workloads
+    skipBackgroundRequests: true
+    validate:
+      allowExistingViolations: true
+      foreach:
+      - list: request.object.spec.containers[]
+        pattern:
+          image: '*@sha256:*'
+      - list: request.object.spec.initContainers[]
+        pattern:
+          image: '*@sha256:*'
+      message: Protected Project 5 images must use immutable sha256 digest references.
+  validationFailureAction: Audit
+status:
+  autogen: {}
+  conditions:
+  - lastTransitionTime: "2026-11-10T12:58:47Z"
+    message: Ready
+    reason: Succeeded
+    status: "True"
+    type: Ready
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 1
+    verifyimages: 0
+  validatingadmissionpolicy:
+    generated: false
+    message: skip generating ValidatingAdmissionPolicy for non CEL rules.

@@ -105,7 +105,8 @@ def main():
             except OSError: time.sleep(1)
         else: raise RuntimeError("Frontend never became ready")
         run("functional-before",[sys.executable,"tests/native_functional.py","--persistence"],timeout=600)
-        security_code = run("security",[sys.executable,"tests/security/native.py","--output",str(out/"security")],timeout=1200,check=False)
+        security_code = run("security",[sys.executable,"tests/security/native.py","--output",str(out/"security"),
+                                       "--integrity-mode","migration"],timeout=1200,check=False)
         run("functional-after",[sys.executable,"tests/native_functional.py"],timeout=180)
         if security_code: raise RuntimeError("Security checks failed; see security/results.json")
     except BaseException as exc:

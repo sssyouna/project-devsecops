@@ -1,0 +1,6 @@
+Error from server: admission webhook "validate.kyverno.svc-fail" denied the request:
+
+resource Pod/project5/kyverno-missing-resources was blocked due to the following policies
+
+project5-resource-requirements:
+  require-container-resources: 'validation failure: validation error: Every Project 5 container must declare CPU and memory requests and limits. rule require-container-resources failed at path /resources/limits/'

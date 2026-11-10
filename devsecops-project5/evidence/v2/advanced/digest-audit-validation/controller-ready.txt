@@ -1,0 +1,4 @@
+deployment.apps/kyverno-admission-controller condition met
+deployment.apps/kyverno-background-controller condition met
+deployment.apps/kyverno-cleanup-controller condition met
+deployment.apps/kyverno-reports-controller condition met

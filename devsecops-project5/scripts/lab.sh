@@ -6,6 +6,13 @@ CLUSTER=project5-lab
 NODE_IMAGE=kindest/node@sha256:452d707d4862f52530247495d180205e029056831160e22870e37e3f6c1ac31f
 POSTGRES_IMAGE=postgres:17.6-alpine@sha256:ef257d85f76e48da1c64832459b59fcaba1a4dac97bf5d7450c77753542eee94
 CALICO_SHA=2de8f47595fb9c41b3f47d7b767a1f8e72ecf84057af834738ff12689a234da5
+KYVERNO_IMAGES=(
+  reg.kyverno.io/kyverno/kyvernopre:v1.19.2
+  reg.kyverno.io/kyverno/kyverno:v1.19.2
+  reg.kyverno.io/kyverno/background-controller:v1.19.2
+  reg.kyverno.io/kyverno/cleanup-controller:v1.19.2
+  reg.kyverno.io/kyverno/reports-controller:v1.19.2
+)
 export KUBECONFIG="$ROOT/.lab/kubeconfig"
 mkdir -p .lab/bin .lab/cache
 KUBECTL="$ROOT/.lab/bin/kubectl"
@@ -75,11 +82,25 @@ deploy() {
     k -n project5 rollout status "deployment/$workload" --timeout=240s
   done
 }
+kyverno() {
+  guard
+  local manifest="$ROOT/.lab/cache/kyverno-v1.19.2-install.yaml"
+  [[ -f "$manifest" ]]
+  for image in "${KYVERNO_IMAGES[@]}"; do
+    docker image inspect "$image" >/dev/null
+    kind load docker-image --name "$CLUSTER" "$image"
+  done
+  k apply --server-side --force-conflicts -f "$manifest"
+  k -n kyverno wait --for=condition=Available deployment --all --timeout=300s
+  [[ -n "$(k -n kyverno get endpoints kyverno-svc -o jsonpath='{.subsets[0].addresses[0].ip}')" ]]
+  k apply --server-side -f k8s/advanced/kyverno-policies.yaml
+}
 case "${1:-help}" in
   up) cluster; build; deploy ;;
   cluster) cluster ;;
   build) build ;;
   deploy) deploy ;;
+  kyverno) kyverno ;;
   forward) guard; exec "$KUBECTL" --kubeconfig "$KUBECONFIG" --context "kind-$CLUSTER" -n project5 port-forward --address 127.0.0.1 service/frontend "${PROJECT5_PORT:-8080}:8080" ;;
   down)
     if docker inspect "$CLUSTER-control-plane" >/dev/null 2>&1; then
@@ -88,5 +109,5 @@ case "${1:-help}" in
     fi ;;
   status) guard; k get nodes; k -n project5 get deployments,pods,services,networkpolicies; k -n project5-data get deployments,pods,services,pvc,networkpolicies; k get storageclasses ;;
   kubectl) shift; guard; k "$@" ;;
-  *) echo 'Usage: bash scripts/lab.sh {up|cluster|build|deploy|forward|down|status|kubectl ...}' ;;
+  *) echo 'Usage: bash scripts/lab.sh {up|cluster|build|deploy|kyverno|forward|down|status|kubectl ...}' ;;
 esac

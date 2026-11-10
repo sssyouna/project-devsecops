@@ -1,0 +1,170 @@
+No kind clusters found.
+Creating cluster "project5-lab" ...
+ • Ensuring node image (kindest/node) 🖼  ...
+ ✓ Ensuring node image (kindest/node) 🖼
+ • Preparing nodes 📦   ...
+ ✓ Preparing nodes 📦
+ • Writing configuration 📜  ...
+ ✓ Writing configuration 📜
+ • Starting control-plane 🕹️  ...
+ ✓ Starting control-plane 🕹️
+ • Installing StorageClass 💾  ...
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-project5-lab"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-project5-lab --kubeconfig /home/ynx/Desktop/projet-cloud/devsecops-project5/.lab/kubeconfig
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+Image: "quay.io/calico/calico:v3.33.0" with ID "sha256:4ad92d437c956a625db81b6d3d669956a5a275e9db3966abbb2e92718de4dfd4" not yet present on node "project5-lab-control-plane", loading...
+Image: "quay.io/calico/node:v3.33.0" with ID "sha256:93e6f0b640645b62626a00c55e5252c361bc3166bf695c4b385cbea4d045fb69" not yet present on node "project5-lab-control-plane", loading...
+Image: "quay.io/calico/third-party-cni-plugins:v3.33.0" with ID "sha256:d4cd73c87e181c2243e4a13b5e0eaae461b6588e439f5d5148517f5b0986bc24" not yet present on node "project5-lab-control-plane", loading...
+.lab/cache/calico-v3.33.0.yaml: OK
+poddisruptionbudget.policy/calico-kube-controllers serverside-applied
+serviceaccount/calico-kube-controllers serverside-applied
+serviceaccount/calico-node serverside-applied
+serviceaccount/calico-cni-plugin serverside-applied
+configmap/calico-config serverside-applied
+customresourcedefinition.apiextensions.k8s.io/bgpconfigurations.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/bgpfilters.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/bgppeers.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/blockaffinities.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/caliconodestatuses.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusterinformations.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/felixconfigurations.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/globalnetworkpolicies.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/globalnetworksets.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/hostendpoints.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/ipamblocks.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/ipamconfigs.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/ipamhandles.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/ippools.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/ipreservations.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/kubecontrollersconfigurations.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/networkpolicies.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/networksets.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/stagedglobalnetworkpolicies.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/stagedkubernetesnetworkpolicies.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/stagednetworkpolicies.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/tiers.crd.projectcalico.org serverside-applied
+customresourcedefinition.apiextensions.k8s.io/clusternetworkpolicies.policy.networking.k8s.io serverside-applied
+clusterrole.rbac.authorization.k8s.io/calico-kube-controllers serverside-applied
+clusterrole.rbac.authorization.k8s.io/calico-node serverside-applied
+clusterrole.rbac.authorization.k8s.io/calico-cni-plugin serverside-applied
+clusterrole.rbac.authorization.k8s.io/calico-tier-getter serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/calico-kube-controllers serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/calico-node serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/calico-cni-plugin serverside-applied
+clusterrolebinding.rbac.authorization.k8s.io/calico-tier-getter serverside-applied
+daemonset.apps/calico-node serverside-applied
+deployment.apps/calico-kube-controllers serverside-applied
+Waiting for daemon set "calico-node" rollout to finish: 0 of 1 updated pods are available...
+daemon set "calico-node" successfully rolled out
+Waiting for deployment "calico-kube-controllers" rollout to finish: 0 of 1 updated replicas are available...
+deployment "calico-kube-controllers" successfully rolled out
+node/project5-lab-control-plane condition met
+Waiting for deployment "coredns" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "coredns" rollout to finish: 1 of 2 updated replicas are available...
+deployment "coredns" successfully rolled out
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 394B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.13.9-slim-bookworm@sha256:b685a4fa58bb19d1814d78a1ec0f0208f351452724f78b20212c984d6e124a34
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 64B 0.0s done
+#3 DONE 0.1s
+
+#4 [1/5] FROM docker.io/library/python:3.13.9-slim-bookworm@sha256:b685a4fa58bb19d1814d78a1ec0f0208f351452724f78b20212c984d6e124a34
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 66B 0.0s done
+#5 DONE 0.1s
+
+#6 [3/5] COPY requirements.lock .
+#6 CACHED
+
+#7 [4/5] RUN pip install --no-cache-dir -r requirements.lock
+#7 CACHED
+
+#8 [2/5] WORKDIR /app
+#8 CACHED
+
+#9 [5/5] COPY main.py .
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers done
+#10 writing image sha256:3b32fd720c6cc7c226a2f95c74f2c6553d557459bd17d0f1265b201c0f391872 0.0s done
+#10 naming to docker.io/library/project5-backend:native 0.0s done
+#10 DONE 0.1s
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 298B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 53B done
+#3 DONE 0.0s
+
+#4 [1/3] FROM docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 118B done
+#5 DONE 0.0s
+
+#6 [2/3] COPY nginx.conf /etc/nginx/nginx.conf
+#6 CACHED
+
+#7 [3/3] COPY index.html styles.css app.js /usr/share/nginx/html/
+#7 CACHED
+
+#8 exporting to image
+#8 exporting layers done
+#8 writing image sha256:7637919394310ccf1f85c7139e22f96550c3908ad93a383a80483f1ca034e500 0.0s done
+#8 naming to docker.io/library/project5-frontend:native 0.0s done
+#8 DONE 0.0s
+Image: "project5-backend:native" with ID "sha256:3b32fd720c6cc7c226a2f95c74f2c6553d557459bd17d0f1265b201c0f391872" not yet present on node "project5-lab-control-plane", loading...
+Image: "project5-frontend:native" with ID "sha256:7637919394310ccf1f85c7139e22f96550c3908ad93a383a80483f1ca034e500" not yet present on node "project5-lab-control-plane", loading...
+Image: "project5-postgres:17.6" with ID "sha256:d741b376874687de90374fd34f55c6b2760e8f7bd7e4ae5cd47f50757fc08cf8" not yet present on node "project5-lab-control-plane", loading...
+namespace/project5 created
+namespace/project5-data created
+serviceaccount/postgres created
+serviceaccount/backend created
+serviceaccount/frontend created
+configmap/database-access-dfb7554m67 created
+configmap/database-init-6h6fm7dck6 created
+secret/database-bootstrap created
+secret/demo-database created
+service/postgres created
+service/backend created
+service/frontend created
+persistentvolumeclaim/postgres-data created
+deployment.apps/postgres created
+deployment.apps/backend created
+deployment.apps/frontend created
+networkpolicy.networking.k8s.io/database-from-backend created
+networkpolicy.networking.k8s.io/default-deny created
+networkpolicy.networking.k8s.io/application-dns created
+networkpolicy.networking.k8s.io/backend-from-frontend created
+networkpolicy.networking.k8s.io/backend-to-database created
+networkpolicy.networking.k8s.io/default-deny created
+networkpolicy.networking.k8s.io/frontend-to-backend created
+Waiting for deployment "postgres" rollout to finish: 0 of 1 updated replicas are available...
+deployment "postgres" successfully rolled out
+Waiting for deployment "backend" rollout to finish: 0 of 1 updated replicas are available...
+deployment "backend" successfully rolled out
+deployment "frontend" successfully rolled out

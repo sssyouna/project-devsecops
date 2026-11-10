@@ -1,11 +1,12 @@
 # Project 5 — Kubernetes Defense-in-Depth
 
-This `v2-secured` working tree implements **Phase 3 native Kubernetes hardening**.
-The approved insecure source and evidence remain at annotated tag `v1-insecure`
-(commit `aeb8e9d`). V1 results are preserved in
-[the Phase 2 assessment](evidence/v1/SECURITY-ASSESSMENT.md). Native validation
-and the eight-scenario comparison belong in [evidence/v2/native](evidence/v2/native/).
-No advanced controls, Phase 4 work, commits or pushes are part of Phase 3.
+This `v2-secured` working tree implements native Kubernetes hardening plus the
+validated Kyverno admission policies. The approved insecure source and evidence
+remain at annotated tag `v1-insecure` (commit `aeb8e9d`). V1 results are
+preserved in [the Phase 2 assessment](evidence/v1/SECURITY-ASSESSMENT.md).
+Native validation and the eight-scenario comparison belong in
+[evidence/v2/native](evidence/v2/native/). The final advanced assessment is in
+[evidence/v2/advanced](evidence/v2/advanced/).
 
 The application still has the same Nginx frontend, FastAPI backend, PostgreSQL
 persistence, inventory UI and CRUD API. All data and passwords are public,
@@ -63,6 +64,7 @@ For interactive use, with responsibility to clean up afterward:
 
 ```sh
 bash scripts/lab.sh up
+bash scripts/lab.sh kyverno
 bash scripts/lab.sh status
 bash scripts/lab.sh forward
 # Open http://127.0.0.1:8080 in the browser.
@@ -72,12 +74,76 @@ python3 tests/native_functional.py --persistence
 bash scripts/lab.sh down
 ```
 
+`bash scripts/lab.sh up` creates the single-node kind cluster, installs the
+cached Calico manifest, builds and loads the local application images, and
+deploys the native manifests. `bash scripts/lab.sh kyverno` then installs the
+pinned cached Kyverno v1.19.2 release with server-side apply and applies
+[the validated policies](k8s/advanced/kyverno-policies.yaml). The command
+requires `.lab/cache/kyverno-v1.19.2-install.yaml`; it does not download a
+release or recreate an existing cluster.
+
+To exercise the retained Kyverno admission cases in an interactive cluster,
+use the sanitized manifests/commands documented in
+[the advanced reproduction guide](evidence/v2/advanced/REPRODUCTION.md) and
+preserve the resulting admission output under `evidence/v2/advanced/kyverno/`.
+The digest policy is Audit-only and must not be reported as prevention.
+
 Use `PROJECT5_PORT=18080 bash scripts/lab.sh forward` for a different loopback
 port and `PROJECT5_BASE=http://127.0.0.1:18080` for functional tests. The full
 validator uses that port. Build/deploy use fixed `:native` local tags with
 imagePullPolicy Never. After source edits, rebuild/load and explicitly restart
 the relevant Deployment. `cluster`, `build`, `deploy` and guarded `kubectl`
 subcommands remain available for diagnostics.
+
+## Automated validation and cleanup
+
+The automated native validator is the reproducible, destructive validation
+workflow:
+
+```sh
+python3 scripts/validate_native.py
+```
+
+It creates only `project5-lab`, runs the pre/post functional checks and the
+eight native security scenarios, preserves sanitized evidence, and deletes the
+cluster in a `finally` block on success, failure, or interruption. The final
+Kyverno integration and targeted digest-audit validation passed the functional
+checks, all eight native scenarios, the corrected regression integrity check,
+and all Kyverno admission/reporting checks. The digest workload was accepted
+in Audit mode and its matching Pod-scoped PolicyReport recorded the expected
+failure before the Pod was deleted. Project 5 meets the required integration
+criteria.
+
+The native security runner defaults to migration integrity (`V1 -> V2`), where
+the protected runtime configuration must change. For an already-secured
+regression (`V2 -> V2`), invoke the security runner with
+`--integrity-mode regression`; this requires the protected configuration to
+remain unchanged and still runs all eight security scenarios.
+
+For a disposable automated Kyverno admission check, start from a clean
+`project5-lab`, run `bash scripts/lab.sh up` followed by
+`bash scripts/lab.sh kyverno`, execute only the retained Kyverno scenarios
+from the reproduction guide, and delete the cluster immediately afterward:
+
+```sh
+trap 'bash scripts/lab.sh down || true' EXIT INT TERM
+bash scripts/lab.sh up
+bash scripts/lab.sh kyverno
+# Run the sanitized Kyverno cases from evidence/v2/advanced/REPRODUCTION.md.
+# Save only concise results under evidence/v2/advanced/kyverno/.
+```
+
+This shell workflow is intentionally separate from `validate_native.py`:
+Kyverno's approved-image and resource rules can affect future test fixtures,
+and no combined post-Kyverno regression result is claimed without executing
+one. Always verify cleanup with:
+
+```sh
+kind get clusters
+docker ps -a --filter label=io.x-k8s.kind.cluster=project5-lab
+```
+
+The final architecture does not include Cilium, Linkerd, Falco, or Tetragon.
 
 ## Application and database
 

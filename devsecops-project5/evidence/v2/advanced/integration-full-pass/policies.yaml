@@ -1,0 +1,378 @@
+apiVersion: v1
+items:
+- apiVersion: kyverno.io/v1
+  kind: ClusterPolicy
+  metadata:
+    annotations:
+      policies.kyverno.io/category: Supply Chain
+      policies.kyverno.io/description: Project 5 workloads in the lab must use the
+        locally built project5 image repositories. This is separate from Pod Security
+        Admission, which does not establish image provenance.
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Approved Project 5 image sources
+    creationTimestamp: "2026-11-10T12:13:50Z"
+    generation: 1
+    name: project5-approved-images
+    resourceVersion: "1575"
+    uid: 23473cad-9142-49c5-bdd2-395a50499ed8
+  spec:
+    admission: true
+    background: true
+    emitWarning: false
+    rules:
+    - match:
+        any:
+        - resources:
+            kinds:
+            - Pod
+            namespaceSelector:
+              matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                - project5
+                - project5-data
+      name: require-approved-container-images
+      skipBackgroundRequests: true
+      validate:
+        allowExistingViolations: true
+        foreach:
+        - deny:
+            conditions:
+              any:
+              - key: '{{ element.image }}'
+                operator: AnyNotIn
+                value:
+                - project5-backend:native
+                - project5-frontend:native
+                - project5-postgres:17.6
+          list: request.object.spec.containers[]
+        - deny:
+            conditions:
+              any:
+              - key: '{{ element.image }}'
+                operator: AnyNotIn
+                value:
+                - project5-backend:native
+                - project5-frontend:native
+                - project5-postgres:17.6
+          list: request.object.spec.initContainers[]
+        message: Project 5 Pods must use an approved project5 image repository.
+    validationFailureAction: Enforce
+  status:
+    autogen:
+      rules:
+      - match:
+          any:
+          - resources:
+              kinds:
+              - apps/v1/DaemonSet
+              - apps/v1/Deployment
+              - batch/v1/Job
+              - apps/v1/ReplicaSet
+              - v1/ReplicationController
+              - apps/v1/StatefulSet
+              namespaceSelector:
+                matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                  - project5
+                  - project5-data
+          resources: {}
+        name: autogen-require-approved-container-images
+        skipBackgroundRequests: true
+        validate:
+          allowExistingViolations: true
+          foreach:
+          - deny:
+              conditions:
+                any:
+                - key: '{{ element.image }}'
+                  operator: AnyNotIn
+                  value:
+                  - project5-backend:native
+                  - project5-frontend:native
+                  - project5-postgres:17.6
+            list: request.object.spec.template.spec.containers[]
+          - deny:
+              conditions:
+                any:
+                - key: '{{ element.image }}'
+                  operator: AnyNotIn
+                  value:
+                  - project5-backend:native
+                  - project5-frontend:native
+                  - project5-postgres:17.6
+            list: request.object.spec.template.spec.initContainers[]
+          message: Project 5 Pods must use an approved project5 image repository.
+      - match:
+          any:
+          - resources:
+              kinds:
+              - batch/v1/CronJob
+              namespaceSelector:
+                matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                  - project5
+                  - project5-data
+          resources: {}
+        name: autogen-cronjob-require-approved-container-images
+        skipBackgroundRequests: true
+        validate:
+          allowExistingViolations: true
+          foreach:
+          - deny:
+              conditions:
+                any:
+                - key: '{{ element.image }}'
+                  operator: AnyNotIn
+                  value:
+                  - project5-backend:native
+                  - project5-frontend:native
+                  - project5-postgres:17.6
+            list: request.object.spec.jobTemplate.spec.template.spec.containers[]
+          - deny:
+              conditions:
+                any:
+                - key: '{{ element.image }}'
+                  operator: AnyNotIn
+                  value:
+                  - project5-backend:native
+                  - project5-frontend:native
+                  - project5-postgres:17.6
+            list: request.object.spec.jobTemplate.spec.template.spec.initContainers[]
+          message: Project 5 Pods must use an approved project5 image repository.
+    conditions:
+    - lastTransitionTime: "2026-11-10T12:13:51Z"
+      message: Ready
+      reason: Succeeded
+      status: "True"
+      type: Ready
+    rulecount:
+      generate: 0
+      mutate: 0
+      validate: 1
+      verifyimages: 0
+    validatingadmissionpolicy:
+      generated: false
+      message: skip generating ValidatingAdmissionPolicy for non CEL rules.
+- apiVersion: kyverno.io/v1
+  kind: ClusterPolicy
+  metadata:
+    annotations:
+      policies.kyverno.io/category: Supply Chain
+      policies.kyverno.io/description: Workloads explicitly marked with image-policy=digest
+        must use image references containing a sha256 digest. The opt-in label preserves
+        the offline lab's local tag-based images while allowing protected workloads
+        to require immutable references.
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Immutable images for protected Project 5 workloads
+    creationTimestamp: "2026-11-10T12:13:51Z"
+    generation: 1
+    name: project5-immutable-protected-images
+    resourceVersion: "1583"
+    uid: 8722b453-63c9-40fd-98c0-d208142259bb
+  spec:
+    admission: true
+    background: true
+    emitWarning: false
+    rules:
+    - match:
+        any:
+        - resources:
+            kinds:
+            - Pod
+            selector:
+              matchLabels:
+                security.project5.io/image-policy: digest
+      name: require-digests-on-protected-workloads
+      skipBackgroundRequests: true
+      validate:
+        allowExistingViolations: true
+        foreach:
+        - list: request.object.spec.containers[]
+          pattern:
+            image: '*@sha256:*'
+        - list: request.object.spec.initContainers[]
+          pattern:
+            image: '*@sha256:*'
+        message: Protected Project 5 images must use immutable sha256 digest references.
+    validationFailureAction: Audit
+  status:
+    autogen: {}
+    conditions:
+    - lastTransitionTime: "2026-11-10T12:13:52Z"
+      message: Ready
+      reason: Succeeded
+      status: "True"
+      type: Ready
+    rulecount:
+      generate: 0
+      mutate: 0
+      validate: 1
+      verifyimages: 0
+    validatingadmissionpolicy:
+      generated: false
+      message: skip generating ValidatingAdmissionPolicy for non CEL rules.
+- apiVersion: kyverno.io/v1
+  kind: ClusterPolicy
+  metadata:
+    annotations:
+      policies.kyverno.io/category: Reliability
+      policies.kyverno.io/description: Project 5 containers must declare CPU and memory
+        requests and limits. This prevents future workload additions from bypassing
+        the resource budget used by the constrained lab VM.
+      policies.kyverno.io/subject: Pod
+      policies.kyverno.io/title: Project 5 resource requirements
+    creationTimestamp: "2026-11-10T12:13:51Z"
+    generation: 1
+    name: project5-resource-requirements
+    resourceVersion: "1579"
+    uid: 308d0117-84e4-4089-ac0d-70b9d6490b2e
+  spec:
+    admission: true
+    background: true
+    emitWarning: false
+    rules:
+    - match:
+        any:
+        - resources:
+            kinds:
+            - Pod
+            namespaceSelector:
+              matchExpressions:
+              - key: kubernetes.io/metadata.name
+                operator: In
+                values:
+                - project5
+                - project5-data
+      name: require-container-resources
+      skipBackgroundRequests: true
+      validate:
+        allowExistingViolations: true
+        foreach:
+        - list: request.object.spec.containers[]
+          pattern:
+            resources:
+              limits:
+                cpu: '*'
+                memory: '*'
+              requests:
+                cpu: '*'
+                memory: '*'
+        - list: request.object.spec.initContainers[]
+          pattern:
+            resources:
+              limits:
+                cpu: '*'
+                memory: '*'
+              requests:
+                cpu: '*'
+                memory: '*'
+        message: Every Project 5 container must declare CPU and memory requests and
+          limits.
+    validationFailureAction: Enforce
+  status:
+    autogen:
+      rules:
+      - match:
+          any:
+          - resources:
+              kinds:
+              - apps/v1/DaemonSet
+              - apps/v1/Deployment
+              - batch/v1/Job
+              - apps/v1/ReplicaSet
+              - v1/ReplicationController
+              - apps/v1/StatefulSet
+              namespaceSelector:
+                matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                  - project5
+                  - project5-data
+          resources: {}
+        name: autogen-require-container-resources
+        skipBackgroundRequests: true
+        validate:
+          allowExistingViolations: true
+          foreach:
+          - list: request.object.spec.template.spec.containers[]
+            pattern:
+              resources:
+                limits:
+                  cpu: '*'
+                  memory: '*'
+                requests:
+                  cpu: '*'
+                  memory: '*'
+          - list: request.object.spec.template.spec.initContainers[]
+            pattern:
+              resources:
+                limits:
+                  cpu: '*'
+                  memory: '*'
+                requests:
+                  cpu: '*'
+                  memory: '*'
+          message: Every Project 5 container must declare CPU and memory requests
+            and limits.
+      - match:
+          any:
+          - resources:
+              kinds:
+              - batch/v1/CronJob
+              namespaceSelector:
+                matchExpressions:
+                - key: kubernetes.io/metadata.name
+                  operator: In
+                  values:
+                  - project5
+                  - project5-data
+          resources: {}
+        name: autogen-cronjob-require-container-resources
+        skipBackgroundRequests: true
+        validate:
+          allowExistingViolations: true
+          foreach:
+          - list: request.object.spec.jobTemplate.spec.template.spec.containers[]
+            pattern:
+              resources:
+                limits:
+                  cpu: '*'
+                  memory: '*'
+                requests:
+                  cpu: '*'
+                  memory: '*'
+          - list: request.object.spec.jobTemplate.spec.template.spec.initContainers[]
+            pattern:
+              resources:
+                limits:
+                  cpu: '*'
+                  memory: '*'
+                requests:
+                  cpu: '*'
+                  memory: '*'
+          message: Every Project 5 container must declare CPU and memory requests
+            and limits.
+    conditions:
+    - lastTransitionTime: "2026-11-10T12:13:51Z"
+      message: Ready
+      reason: Succeeded
+      status: "True"
+      type: Ready
+    rulecount:
+      generate: 0
+      mutate: 0
+      validate: 1
+      verifyimages: 0
+    validatingadmissionpolicy:
+      generated: false
+      message: ""
+kind: List
+metadata:
+  resourceVersion: ""

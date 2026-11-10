@@ -1,0 +1,877 @@
+{
+  "cases": {
+    "T01": {
+      "observations": {
+        "actual_impersonated_requests": {
+          "deployment_modify": {
+            "exit_code": 1,
+            "forbidden": true,
+            "stderr": "Error from server (Forbidden): deployments.apps \"backend\" is forbidden: User \"system:serviceaccount:project5:backend\" cannot get resource \"deployments\" in API group \"apps\" in the namespace \"project5\"\n",
+            "stdout": ""
+          },
+          "exec": {
+            "exit_code": 1,
+            "forbidden": true,
+            "stderr": "Error from server (Forbidden): pods \"unused\" is forbidden: User \"system:serviceaccount:project5:backend\" cannot create resource \"pods/exec\" in API group \"\" in the namespace \"project5\"\n",
+            "stdout": ""
+          },
+          "secret_read": {
+            "exit_code": 1,
+            "forbidden": true,
+            "stderr": "Error from server (Forbidden): secrets \"phase2-canary-57fc126464\" is forbidden: User \"system:serviceaccount:project5:backend\" cannot get resource \"secrets\" in API group \"\" in the namespace \"project5\"\n",
+            "stdout": ""
+          },
+          "workload_create": {
+            "exit_code": 1,
+            "forbidden": true,
+            "stderr": "Error from server (Forbidden): error when creating \"STDIN\": pods is forbidden: User \"system:serviceaccount:project5:backend\" cannot create resource \"pods\" in API group \"\" in the namespace \"project5\"\n",
+            "stdout": ""
+          }
+        },
+        "anonymous_control": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        },
+        "authorization": [
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "secrets",
+            "verb": "get"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "secrets",
+            "verb": "list"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "pods",
+            "verb": "create"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "pods/exec",
+            "verb": "create"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "deployments.apps",
+            "verb": "patch"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5-data",
+            "resource": "persistentvolumeclaims",
+            "verb": "get"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5-data",
+            "resource": "persistentvolumeclaims",
+            "verb": "delete"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5-check-57fc126464",
+            "resource": "secrets",
+            "verb": "get"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": null,
+            "resource": "nodes",
+            "verb": "get"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": null,
+            "resource": "persistentvolumes",
+            "verb": "get"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": null,
+            "resource": "namespaces",
+            "verb": "list"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "rolebindings.rbac.authorization.k8s.io",
+            "verb": "create"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "project5",
+            "resource": "serviceaccounts/token",
+            "verb": "create"
+          },
+          {
+            "answer": "no",
+            "exit_code": 1,
+            "namespace": "kube-system",
+            "resource": "secrets",
+            "verb": "get"
+          }
+        ],
+        "canary_secret": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        },
+        "cross_namespace_secret": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        },
+        "demo_database_secret": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        },
+        "deployment_patch_dryrun": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        },
+        "pvc": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        },
+        "token_identity": {
+          "credential_present": false,
+          "denial_layer": "token_not_mounted",
+          "request_attempted": false
+        }
+      },
+      "passed": true,
+      "secured_checks": {
+        "all_14_authorization_operations_denied": true,
+        "four_actual_requests_forbidden": true,
+        "no_mounted_backend_credential": true
+      }
+    },
+    "T02": {
+      "observations": {
+        "backend": {
+          "authorization": [
+            "no",
+            "no",
+            "no",
+            "no"
+          ],
+          "automount": false,
+          "identity": "system:serviceaccount:project5:backend",
+          "service_account": "backend",
+          "token_absent": true,
+          "uid": 10001
+        },
+        "frontend": {
+          "authorization": [
+            "no",
+            "no",
+            "no",
+            "no"
+          ],
+          "automount": false,
+          "identity": "system:serviceaccount:project5:frontend",
+          "service_account": "frontend",
+          "token_absent": true,
+          "uid": 101
+        },
+        "lateral_exec": {
+          "exit_code": 1,
+          "stderr": "Error from server (Forbidden): pods \"frontend-7dc68cf4cd-b77z8\" is forbidden: User \"system:serviceaccount:project5:backend\" cannot get resource \"pods\" in API group \"\" in the namespace \"project5\"\n"
+        },
+        "postgres": {
+          "authorization": [
+            "no",
+            "no",
+            "no",
+            "no"
+          ],
+          "automount": false,
+          "identity": "system:serviceaccount:project5-data:postgres",
+          "service_account": "postgres",
+          "token_absent": true,
+          "uid": 70
+        }
+      },
+      "passed": true,
+      "secured_checks": {
+        "all_tokenless_and_unprivileged_in_api": true,
+        "lateral_exec_forbidden": true,
+        "three_distinct_dedicated_identities": true
+      }
+    },
+    "T03": {
+      "observations": {
+        "backend_api_egress": {
+          "connected": false,
+          "detail": "timed out",
+          "error": "TimeoutError",
+          "host": "10.96.0.1",
+          "port": 443,
+          "resolved_addresses": [
+            "10.96.0.1"
+          ]
+        },
+        "backend_external_controlled_target": {
+          "detail": "<urlopen error timed out>",
+          "error": "URLError",
+          "http_status": null
+        },
+        "backend_frontend": {
+          "detail": "<urlopen error timed out>",
+          "error": "URLError",
+          "http_status": null
+        },
+        "cni_egress_control": {
+          "after": {
+            "bytes": 187,
+            "http_status": 200,
+            "sha256": "411372345ffabd3a7daf97f3dce9cfffbd36586d51e08f232c01963d08538181"
+          },
+          "before": {
+            "bytes": 187,
+            "http_status": 200,
+            "sha256": "411372345ffabd3a7daf97f3dce9cfffbd36586d51e08f232c01963d08538181"
+          },
+          "during": [
+            {
+              "detail": "<urlopen error timed out>",
+              "error": "URLError",
+              "http_status": null
+            },
+            {
+              "detail": "<urlopen error timed out>",
+              "error": "URLError",
+              "http_status": null
+            }
+          ],
+          "enforced": true,
+          "target_uid_unchanged": true
+        },
+        "cni_ingress_control": {
+          "after": {
+            "bytes": 187,
+            "http_status": 200,
+            "sha256": "411372345ffabd3a7daf97f3dce9cfffbd36586d51e08f232c01963d08538181"
+          },
+          "before": {
+            "bytes": 187,
+            "http_status": 200,
+            "sha256": "411372345ffabd3a7daf97f3dce9cfffbd36586d51e08f232c01963d08538181"
+          },
+          "during": [
+            {
+              "detail": "<urlopen error timed out>",
+              "error": "URLError",
+              "http_status": null
+            },
+            {
+              "detail": "<urlopen error timed out>",
+              "error": "URLError",
+              "http_status": null
+            }
+          ],
+          "enforced": true,
+          "target_uid_unchanged": true
+        },
+        "foreign_backend_label_to_database": {
+          "connected": false,
+          "detail": "timed out",
+          "error": "TimeoutError",
+          "host": "postgres.project5-data.svc.cluster.local",
+          "port": 5432,
+          "resolved_addresses": [
+            "10.96.138.57"
+          ]
+        },
+        "foreign_frontend_label_to_backend": {
+          "detail": "<urlopen error timed out>",
+          "error": "URLError",
+          "http_status": null
+        },
+        "frontend_database": {
+          "elapsed_seconds": 3.0219777490001434,
+          "exit_code": 1,
+          "protocol_response": "",
+          "stderr": "command terminated with exit code 1\n"
+        },
+        "required_backend_database": {
+          "connected": true,
+          "host": "postgres.project5-data.svc.cluster.local",
+          "port": 5432,
+          "postgres_ssl_response": "N",
+          "resolved_addresses": [
+            "10.96.138.57"
+          ]
+        },
+        "required_frontend_backend": {
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "{\"status\":\"ok\",\"database\":\"reachable\"}"
+        }
+      },
+      "passed": true,
+      "secured_checks": {
+        "backend_api_egress_blocked": true,
+        "backend_cannot_contact_frontend_or_external_target": true,
+        "both_required_links_work_with_dns": true,
+        "calico_enforces_ingress_and_egress": true,
+        "foreign_label_spoofing_does_not_allow_ingress": true,
+        "frontend_cannot_contact_database": true
+      }
+    },
+    "T04": {
+      "observations": {
+        "backend": {
+          "euid": 10001,
+          "explicit_tmp_writable": true,
+          "gid": 10001,
+          "pid1": {
+            "CapBnd": "0000000000000000",
+            "CapEff": "0000000000000000",
+            "Gid": "10001\t10001\t10001\t10001",
+            "Name": "uvicorn",
+            "NoNewPrivs": "1",
+            "Seccomp": "2",
+            "Seccomp_filters": "1",
+            "Uid": "10001\t10001\t10001\t10001"
+          },
+          "probe": {
+            "CapBnd": "0000000000000000",
+            "CapEff": "0000000000000000",
+            "Gid": "10001\t10001\t10001\t10001",
+            "Name": "python",
+            "NoNewPrivs": "1",
+            "Seccomp": "2",
+            "Seccomp_filters": "1",
+            "Uid": "10001\t10001\t10001\t10001"
+          },
+          "raw_socket_created_without_sending_packets": false,
+          "raw_socket_error": "PermissionError",
+          "root_mount_read_only": true,
+          "rootfs_error": "OSError",
+          "rootfs_write": false,
+          "token_present": false,
+          "uid": 10001
+        },
+        "frontend": {
+          "exit_code": 0,
+          "stdout": "101\nUid:\t101\t101\t101\t101\nCapEff:\t0000000000000000\nCapBnd:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2\nROOT_WRITE_DENIED\nTMP_WRITABLE\n"
+        },
+        "original_setuid_setup": {
+          "attempted": false,
+          "reason": "Root is required to seed the controlled root-owned helper"
+        },
+        "postgres": {
+          "exit_code": 0,
+          "stdout": "70\nUid:\t70\t70\t70\t70\nCapEff:\t0000000000000000\nCapBnd:\t0000000000000000\nNoNewPrivs:\t1\nSeccomp:\t2\nROOT_WRITE_DENIED\nTMP_WRITABLE\n"
+        },
+        "suid-positive": {
+          "ordinary": {
+            "exit_code": 0,
+            "observation": {
+              "euid": 65532,
+              "root_canary_read": false,
+              "ruid": 65532
+            },
+            "stderr": ""
+          },
+          "parent": {
+            "CapBnd": "0000000000000000",
+            "CapEff": "0000000000000000",
+            "Gid": "0\t0\t0\t0",
+            "Name": "python",
+            "NoNewPrivs": "0",
+            "Seccomp": "2",
+            "Seccomp_filters": "1",
+            "Uid": "65532\t65532\t65532\t65532"
+          },
+          "seeded_setuid": {
+            "exit_code": 0,
+            "observation": {
+              "euid": 0,
+              "root_canary_read": true,
+              "ruid": 65532
+            },
+            "stderr": ""
+          }
+        },
+        "suid-secured": {
+          "ordinary": {
+            "exit_code": 0,
+            "observation": {
+              "euid": 65532,
+              "root_canary_read": false,
+              "ruid": 65532
+            },
+            "stderr": ""
+          },
+          "parent": {
+            "CapBnd": "0000000000000000",
+            "CapEff": "0000000000000000",
+            "Gid": "0\t0\t0\t0",
+            "Name": "python",
+            "NoNewPrivs": "1",
+            "Seccomp": "2",
+            "Seccomp_filters": "1",
+            "Uid": "65532\t65532\t65532\t65532"
+          },
+          "seeded_setuid": {
+            "exit_code": 0,
+            "observation": {
+              "euid": 65532,
+              "root_canary_read": false,
+              "ruid": 65532
+            },
+            "stderr": ""
+          }
+        }
+      },
+      "passed": true,
+      "secured_checks": {
+        "backend_nonroot_no_caps_seccomp_nnp": true,
+        "backend_readonly_root_writable_explicit_tmp": true,
+        "matched_setuid_fixture_proves_no_new_privileges": true,
+        "other_tiers_nonroot_hardened": true,
+        "raw_socket_denied": true
+      }
+    },
+    "T05": {
+      "observations": {
+        "backend_export_access": {
+          "append": {
+            "allowed": false,
+            "errno": 2,
+            "error": "FileNotFoundError"
+          },
+          "groups": [
+            10001
+          ],
+          "path": "/lab-shared/fictional-payroll.csv",
+          "read": {
+            "allowed": false,
+            "errno": 2,
+            "error": "FileNotFoundError"
+          },
+          "uid": 10001
+        },
+        "backend_volumes": [
+          {
+            "emptyDir": {
+              "sizeLimit": "32Mi"
+            },
+            "name": "tmp"
+          }
+        ],
+        "export_state": "70:70 700 /var/lib/postgresql/data/exports\n70:70 600 /var/lib/postgresql/data/exports/fictional-payroll.csv\n054b058e4c24bc619591295acdeb2d1b4f5271fddbfa978ccea4578e3b23d072  /var/lib/postgresql/data/exports/fictional-payroll.csv\n",
+        "operator_created_nonowner_pod": {
+          "append": {
+            "allowed": false,
+            "errno": 13,
+            "error": "PermissionError"
+          },
+          "groups": [
+            0
+          ],
+          "path": "/storage/exports/fictional-payroll.csv",
+          "read": {
+            "allowed": false,
+            "errno": 13,
+            "error": "PermissionError"
+          },
+          "uid": 65532
+        },
+        "wrong_namespace_events": [
+          {
+            "message": "0/1 nodes are available: persistentvolumeclaim \"postgres-data\" not found. not found",
+            "reason": "FailedScheduling"
+          }
+        ],
+        "wrong_namespace_phase": "Pending"
+      },
+      "passed": true,
+      "secured_checks": {
+        "backend_has_no_export_or_pvc_mount": true,
+        "export_permissions_and_bytes_preserved": true,
+        "nonowner_read_and_append_denied": true,
+        "pvc_namespace_boundary": true
+      }
+    },
+    "T06": {
+      "observations": {
+        "baseline_fixture_file_sha256": "cf8c53a84fbc2d2a9ff16c227457cf28c473fd8a6759a14d0fb2404989647655",
+        "namespaces": {
+          "project5": {
+            "allow_privilege_escalation": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-allow-privilege-escalation-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": allowPrivilegeEscalation != false (container \"probe\" must set securityContext.allowPrivilegeEscalation=false)\n"
+            },
+            "combined_privileged_host_access": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-combined-privileged-host-access-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostNetwork=true, hostPID=true, hostIPC=true), privileged (container \"probe\" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container \"probe\" must set securityContext.allowPrivilegeEscalation=false), restricted volume types (volume \"admission-only\" uses restricted volume type \"hostPath\"), runAsNonRoot != true (pod must not set securityContext.runAsNonRoot=false), runAsUser=0 (pod must not set runAsUser=0), seccompProfile (pod must not set securityContext.seccompProfile.type to \"Unconfined\")\n"
+            },
+            "contradictory_privileged_control": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": null,
+              "stderr": "The Pod \"native-dry-contradictory-privileged-control-57fc126464\" is invalid: spec.containers[0].securityContext: Invalid value: {\"Capabilities\":{\"Add\":null,\"Drop\":[\"ALL\"]},\"Privileged\":true,\"SELinuxOptions\":null,\"WindowsOptions\":null,\"RunAsUser\":null,\"RunAsGroup\":null,\"RunAsNonRoot\":null,\"ReadOnlyRootFilesystem\":true,\"AllowPrivilegeEscalation\":false,\"ProcMount\":null,\"SeccompProfile\":null,\"AppArmorProfile\":null}: cannot set `allowPrivilegeEscalation` to false and `privileged` to true\n"
+            },
+            "host_ipc": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-host-ipc-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostIPC=true)\n"
+            },
+            "host_network": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-host-network-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostNetwork=true)\n"
+            },
+            "host_pid": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-host-pid-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostPID=true)\n"
+            },
+            "hostpath": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-hostpath-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": restricted volume types (volume \"admission-only\" uses restricted volume type \"hostPath\")\n"
+            },
+            "invalid_type_control": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": null,
+              "stderr": "Error from server (BadRequest): Pod in version \"v1\" cannot be handled as a Pod: json: cannot unmarshal string into Go struct field SecurityContext.spec.containers.securityContext.privileged of type bool\n"
+            },
+            "privileged": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-privileged-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": privileged (container \"probe\" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container \"probe\" must set securityContext.allowPrivilegeEscalation=false)\n"
+            },
+            "restricted_control": {
+              "accepted": true,
+              "exit_code": 0,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": "Pod",
+              "stderr": ""
+            },
+            "root": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-root-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": runAsNonRoot != true (pod must not set securityContext.runAsNonRoot=false), runAsUser=0 (pod must not set runAsUser=0)\n"
+            },
+            "sys_admin_capability": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-sys-admin-capability-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": unrestricted capabilities (container \"probe\" must not include \"SYS_ADMIN\" in securityContext.capabilities.add)\n"
+            },
+            "unconfined_seccomp": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-unconfined-seccomp-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": seccompProfile (container \"probe\" must not set securityContext.seccompProfile.type to \"Unconfined\")\n"
+            },
+            "writable_rootfs": {
+              "accepted": true,
+              "exit_code": 0,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": "Pod",
+              "stderr": ""
+            }
+          },
+          "project5-data": {
+            "allow_privilege_escalation": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-allow-privilege-escalation-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": allowPrivilegeEscalation != false (container \"probe\" must set securityContext.allowPrivilegeEscalation=false)\n"
+            },
+            "combined_privileged_host_access": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-combined-privileged-host-access-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostNetwork=true, hostPID=true, hostIPC=true), privileged (container \"probe\" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container \"probe\" must set securityContext.allowPrivilegeEscalation=false), restricted volume types (volume \"admission-only\" uses restricted volume type \"hostPath\"), runAsNonRoot != true (pod must not set securityContext.runAsNonRoot=false), runAsUser=0 (pod must not set runAsUser=0), seccompProfile (pod must not set securityContext.seccompProfile.type to \"Unconfined\")\n"
+            },
+            "contradictory_privileged_control": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": null,
+              "stderr": "The Pod \"native-dry-contradictory-privileged-control-57fc126464\" is invalid: spec.containers[0].securityContext: Invalid value: {\"Capabilities\":{\"Add\":null,\"Drop\":[\"ALL\"]},\"Privileged\":true,\"SELinuxOptions\":null,\"WindowsOptions\":null,\"RunAsUser\":null,\"RunAsGroup\":null,\"RunAsNonRoot\":null,\"ReadOnlyRootFilesystem\":true,\"AllowPrivilegeEscalation\":false,\"ProcMount\":null,\"SeccompProfile\":null,\"AppArmorProfile\":null}: cannot set `allowPrivilegeEscalation` to false and `privileged` to true\n"
+            },
+            "host_ipc": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-host-ipc-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostIPC=true)\n"
+            },
+            "host_network": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-host-network-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostNetwork=true)\n"
+            },
+            "host_pid": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-host-pid-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": host namespaces (hostPID=true)\n"
+            },
+            "hostpath": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-hostpath-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": restricted volume types (volume \"admission-only\" uses restricted volume type \"hostPath\")\n"
+            },
+            "invalid_type_control": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": null,
+              "stderr": "Error from server (BadRequest): Pod in version \"v1\" cannot be handled as a Pod: json: cannot unmarshal string into Go struct field SecurityContext.spec.containers.securityContext.privileged of type bool\n"
+            },
+            "privileged": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-privileged-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": privileged (container \"probe\" must not set securityContext.privileged=true), allowPrivilegeEscalation != false (container \"probe\" must set securityContext.allowPrivilegeEscalation=false)\n"
+            },
+            "restricted_control": {
+              "accepted": true,
+              "exit_code": 0,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": "Pod",
+              "stderr": ""
+            },
+            "root": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-root-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": runAsNonRoot != true (pod must not set securityContext.runAsNonRoot=false), runAsUser=0 (pod must not set runAsUser=0)\n"
+            },
+            "sys_admin_capability": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-sys-admin-capability-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": unrestricted capabilities (container \"probe\" must not include \"SYS_ADMIN\" in securityContext.capabilities.add)\n"
+            },
+            "unconfined_seccomp": {
+              "accepted": false,
+              "exit_code": 1,
+              "not_persisted": true,
+              "psa_rejection": true,
+              "response_kind": null,
+              "stderr": "Error from server (Forbidden): pods \"native-dry-unconfined-seccomp-57fc126464\" is forbidden: violates PodSecurity \"restricted:v1.35\": seccompProfile (container \"probe\" must not set securityContext.seccompProfile.type to \"Unconfined\")\n"
+            },
+            "writable_rootfs": {
+              "accepted": true,
+              "exit_code": 0,
+              "not_persisted": true,
+              "psa_rejection": false,
+              "response_kind": "Pod",
+              "stderr": ""
+            }
+          }
+        }
+      },
+      "passed": true,
+      "secured_checks": {
+        "project5-data:dangerous_specs_rejected_by_psa": true,
+        "project5-data:invalid_controls_rejected_by_core": true,
+        "project5-data:no_dryrun_pods_persisted": true,
+        "project5-data:restricted_control_admitted": true,
+        "project5-data:writable_rootfs_documents_psa_limit": true,
+        "project5:dangerous_specs_rejected_by_psa": true,
+        "project5:invalid_controls_rejected_by_core": true,
+        "project5:no_dryrun_pods_persisted": true,
+        "project5:restricted_control_admitted": true,
+        "project5:writable_rootfs_documents_psa_limit": true
+      }
+    },
+    "T07": {
+      "observations": {
+        "foreign_crud": {
+          "probe_error": {
+            "detail": "<urlopen error timed out>",
+            "type": "URLError"
+          }
+        },
+        "foreign_positive_http_control": {
+          "bytes": 187,
+          "http_status": 200,
+          "sha256": "411372345ffabd3a7daf97f3dce9cfffbd36586d51e08f232c01963d08538181"
+        },
+        "source": {
+          "namespace": "project5-check-57fc126464",
+          "spoofed_app_label": "frontend",
+          "token_mounted": false,
+          "uid": 65532
+        }
+      },
+      "passed": true,
+      "secured_checks": {
+        "same_source_positive_control_works": true,
+        "untrusted_crud_connection_times_out": true
+      }
+    },
+    "T08": {
+      "observations": {
+        "admin_tcp": {
+          "allowed": false,
+          "hba_reject": true,
+          "sqlstate": null
+        },
+        "crud_privileges": {
+          "DELETE": true,
+          "INSERT": true,
+          "SELECT": true,
+          "TRUNCATE": false,
+          "UPDATE": true
+        },
+        "denied_actions": {
+          "projected_token_read": {
+            "allowed": false,
+            "error_class": "InsufficientPrivilege",
+            "sqlstate": "42501"
+          },
+          "schema_create": {
+            "allowed": false,
+            "error_class": "InsufficientPrivilege",
+            "sqlstate": "42501"
+          },
+          "sequence_read": {
+            "allowed": false,
+            "error_class": "InsufficientPrivilege",
+            "sqlstate": "42501"
+          },
+          "server_file_read": {
+            "allowed": false,
+            "error_class": "InsufficientPrivilege",
+            "sqlstate": "42501"
+          },
+          "temporary_table_create": {
+            "allowed": false,
+            "error_class": "InsufficientPrivilege",
+            "sqlstate": "42501"
+          }
+        },
+        "role": {
+          "bypass_rls": false,
+          "create_database": false,
+          "create_role": false,
+          "name": "inventory_app",
+          "replication": false,
+          "superuser": false
+        },
+        "row_count": 3,
+        "rows_sha256": "16ab703b9d23830c0070316d125bd8400edf2c078de4bba01634f558c5c2c909"
+      },
+      "passed": true,
+      "secured_checks": {
+        "admin_tcp_login_rejected_by_hba": true,
+        "application_role_has_no_admin_attributes": true,
+        "crud_allowed_truncate_denied": true,
+        "file_reads_and_ddl_denied_independently_of_token_absence": true
+      }
+    }
+  },
+  "cleanup_succeeded": true,
+  "cluster": "project5-lab",
+  "data_namespace": "project5-data",
+  "errors": [],
+  "finished_utc": "2026-11-10T12:22:05.452580+00:00",
+  "integrity": {
+    "database_rows_unchanged": true,
+    "export_unchanged": true,
+    "runtime_baseline_unchanged": true,
+    "runtime_expectation_met": true,
+    "runtime_hardening_changed": false,
+    "source_unchanged": true
+  },
+  "namespace": "project5",
+  "passed": true,
+  "run_id": "57fc126464",
+  "started_utc": "2026-11-10T12:16:34.971387+00:00",
+  "workload_identity": "system:serviceaccount:project5:backend"
+}

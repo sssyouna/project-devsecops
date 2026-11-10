@@ -1,0 +1,15 @@
++ kind create cluster --name project5-linkerd --image kindest/node@sha256:452d707d4862f52530247495d180205e029056831160e22870e37e3f6c1ac31f --config /home/ynx/Desktop/projet-cloud/devsecops-project5/k8s/kind.yaml --kubeconfig /tmp/project5-linkerd-kubeconfig --retain --wait 0s
++ kind load docker-image --name project5-linkerd quay.io/calico/calico:v3.33.0
++ kind load docker-image --name project5-linkerd quay.io/calico/node:v3.33.0
++ kind load docker-image --name project5-linkerd quay.io/calico/third-party-cni-plugins:v3.33.0
++ kubectl --context kind-project5-linkerd apply --server-side -f /home/ynx/Desktop/projet-cloud/devsecops-project5/.lab/cache/calico-v3.33.0.yaml
++ kubectl --context kind-project5-linkerd -n kube-system rollout status daemonset/calico-node --timeout=300s
++ kubectl --context kind-project5-linkerd -n kube-system rollout status deployment/calico-kube-controllers --timeout=180s
++ kubectl --context kind-project5-linkerd wait --for=condition=Ready node --all --timeout=180s
++ kind load docker-image --name project5-linkerd project5-backend:native
++ kind load docker-image --name project5-linkerd project5-frontend:native
++ kind load docker-image --name project5-linkerd project5-postgres:17.6
++ kubectl --context kind-project5-linkerd apply -k /home/ynx/Desktop/projet-cloud/devsecops-project5/k8s/base
++ kubectl --context kind-project5-linkerd -n project5-data rollout status deployment/postgres --timeout=240s
++ kubectl --context kind-project5-linkerd -n project5 rollout status deployment/backend --timeout=240s
++ kubectl --context kind-project5-linkerd -n project5 rollout status deployment/frontend --timeout=240s

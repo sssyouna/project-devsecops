@@ -1,0 +1,7 @@
+4f785937dc7fe49a0731108b15def1538923c73d9236255bc69d94d498037969  .lab/cache/kyverno-v1.19.2-install.yaml
+available quay.io/calico/calico:v3.33.0
+available quay.io/calico/node:v3.33.0
+available quay.io/calico/third-party-cni-plugins:v3.33.0
+available project5-backend:native
+available project5-frontend:native
+available project5-postgres:17.6

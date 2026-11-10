@@ -1,0 +1,5 @@
+Deleting cluster "project5-linkerd-final" ...
+Deleted nodes: ["project5-linkerd-final-control-plane"]
+remaining_kind_clusters:
+No kind clusters found.
+remaining_project5-linkerd-final_containers:

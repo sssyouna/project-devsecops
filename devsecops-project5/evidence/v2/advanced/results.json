@@ -1,0 +1,86 @@
+{
+  "phase": "4",
+  "status": "full-pass",
+  "final_architecture": [
+    "Kubernetes RBAC and dedicated ServiceAccounts",
+    "Restricted Pod Security Admission",
+    "hardened SecurityContexts",
+    "Calico and Kubernetes NetworkPolicies",
+    "PostgreSQL least privilege",
+    "Kyverno admission policies"
+  ],
+  "abandoned_tools": {
+    "cilium": {
+      "status": "abandoned",
+      "reason": "project scope and operational complexity",
+      "deployed_in_final_architecture": false,
+      "compatibility_conclusion": "not assessed as proven incompatible"
+    },
+    "linkerd": {
+      "status": "abandoned",
+      "reason": "project scope and operational complexity",
+      "deployed_in_final_architecture": false,
+      "compatibility_conclusion": "not assessed as proven incompatible"
+    }
+  },
+  "cluster": {
+    "name": "project5-lab",
+    "deleted": true,
+    "remaining_kind_clusters": [],
+    "remaining_project5_containers": []
+  },
+  "kyverno": {
+    "release": "v1.19.2",
+    "installation_manifest_sha256": "4f785937dc7fe49a0731108b15def1538923c73d9236255bc69d94d498037969",
+    "policies_ready": [
+      "project5-approved-images",
+      "project5-resource-requirements",
+      "project5-immutable-protected-images"
+    ],
+    "tests": [
+      {
+        "name": "approved-image-and-resource-compliant-pod",
+        "result": "passed",
+        "mode": "enforce",
+        "evidence": "kyverno/allowed-apply.txt",
+        "attribution": "accepted by the API; the manifest was PSA-compliant, so no PSA rejection occurred"
+      },
+      {
+        "name": "unapproved-image",
+        "result": "passed",
+        "mode": "enforce",
+        "evidence": "kyverno/denied-approved.txt",
+        "attribution": "Kyverno policy project5-approved-images / rule require-approved-container-images"
+      },
+      {
+        "name": "missing-resource-limit",
+        "result": "passed",
+        "mode": "enforce",
+        "evidence": "kyverno/denied-resources.txt",
+        "attribution": "Kyverno policy project5-resource-requirements / rule require-container-resources"
+      },
+      {
+        "name": "digest-required-on-opt-in-workload",
+        "result": "passed",
+        "mode": "audit",
+        "evidence": "digest-audit-validation/result.json",
+        "attribution": "the Pod was admitted without blocking and PolicyReport/project5 recorded result=fail for policy project5-immutable-protected-images / rule require-digests-on-protected-workloads"
+      }
+    ]
+  },
+  "runtime_detection": {
+    "falco": "not-deployed",
+    "tetragon": "not-deployed",
+    "detection_demonstrated": false
+  },
+  "regression": {
+    "functional_after_advanced_install": "passed",
+    "native_security_scenarios_after_advanced_install": "8-of-8-passed",
+    "native_security_aggregate": "passed",
+    "native_security_aggregate_reason": "Regression mode correctly accepts an unchanged V2 security snapshot",
+    "evidence": "integration-full-pass/",
+    "cleanup_verified": true,
+    "digest_audit_reporting": "passed",
+    "digest_audit_evidence": "digest-audit-validation/result.json"
+  }
+}

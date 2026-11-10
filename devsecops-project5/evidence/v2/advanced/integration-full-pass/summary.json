@@ -1,0 +1,45 @@
+{
+  "status": "full-pass",
+  "full_pass": true,
+  "functional": {
+    "frontend": "passed",
+    "backend_health": "passed",
+    "inventory_crud": "passed",
+    "postgresql_persistence": "passed"
+  },
+  "kyverno": {
+    "controllers_ready": true,
+    "webhook_endpoint_ready": true,
+    "policies_ready": true,
+    "compliant_workload": "passed",
+    "unapproved_image": {
+      "result": "passed",
+      "attribution": "project5-approved-images / require-approved-container-images"
+    },
+    "missing_resources": {
+      "result": "passed",
+      "attribution": "project5-resource-requirements / require-container-resources"
+    },
+    "digest_audit": {
+      "admission": "accepted",
+      "blocking": false,
+      "policy_report_observed": false,
+      "limitation": "No digest-policy PolicyReport for the test Pod was present in the bounded collection window."
+    }
+  },
+  "native_security": {
+    "scenarios": "8-of-8-passed",
+    "runtime_expectation_met": true,
+    "aggregate_passed": true,
+    "integrity": {
+      "runtime_baseline_unchanged": true,
+      "runtime_hardening_changed": false,
+      "runtime_expectation_met": true
+    }
+  },
+  "cleanup": {
+    "cluster_deleted": true,
+    "remaining_kind_clusters": [],
+    "remaining_project5_lab_containers": []
+  }
+}

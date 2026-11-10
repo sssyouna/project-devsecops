@@ -12,6 +12,7 @@ from pathlib import Path
 import time
 
 import baseline
+from integrity import runtime_integrity
 
 ROOT = baseline.ROOT
 NATIVE = Path(__file__).with_name("native_probe.py")
@@ -298,8 +299,9 @@ class NativeLab(baseline.Lab):
                 self.results["cleanup_succeeded"] = all(e.get("already_absent") or e.get("exit_code") == 0 for e in cleanup)
                 if hasattr(self, "before"):
                     after, db_after = self.snapshot(), self.probe("database")
-                    integrity = {"source_unchanged":self.inputs == baseline.source_hashes(), "runtime_baseline_unchanged":self.before == after,
-                                 "runtime_hardening_changed":self.before != after,
+                    runtime = runtime_integrity(self.before, after, self.args.integrity_mode)
+                    integrity = {"source_unchanged":self.inputs == baseline.source_hashes(),
+                                 **runtime,
                                  "database_rows_unchanged":self.db_before.get("rows_sha256") is not None and self.db_before.get("rows_sha256") == db_after.get("rows_sha256"),
                                  "export_unchanged":hasattr(self,"export_before") and self.export_before == self.export_state(),
                                  "before":self.before,"after":after,"database_before":self.db_before,"database_after":db_after}
@@ -309,7 +311,7 @@ class NativeLab(baseline.Lab):
                 self.results["errors"].append({"cleanup_or_integrity_error":str(exc)})
             self.results["finished_utc"] = datetime.now(timezone.utc).isoformat()
             integrity = self.results.get("integrity", {})
-            required_integrity = ["source_unchanged", "database_rows_unchanged", "export_unchanged", "runtime_hardening_changed"]
+            required_integrity = ["source_unchanged", "database_rows_unchanged", "export_unchanged", "runtime_expectation_met"]
             self.results["passed"] = not self.results["errors"] and len(self.results["cases"]) == 8 and all(c.get("passed") for c in self.results["cases"].values()) and self.results.get("cleanup_succeeded") is True and all(integrity.get(key) is True for key in required_integrity)
             self.save("results.json",self.results)
         for case, value in self.results["cases"].items():
@@ -321,6 +323,8 @@ class NativeLab(baseline.Lab):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output",required=True)
+    parser.add_argument("--integrity-mode", choices=["migration", "regression"], default="migration",
+                        help="expect security configuration to change (V1 to V2) or remain stable (V2 to V2)")
     args = parser.parse_args()
     args.namespace, args.data_namespace = "project5", "project5-data"
     args.service_account, args.pvc = "backend", "postgres-data"
